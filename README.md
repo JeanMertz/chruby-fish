@@ -1,4 +1,4 @@
-# chruby
+# chruby-fish
 
 Changes the current Ruby.
 
@@ -12,11 +12,10 @@ Changes the current Ruby.
 * Additionally sets `$RUBY_ROOT`, `$RUBY_ENGINE`, `$RUBY_VERSION` and
   `$GEM_ROOT`.
 * Optionally sets `$RUBYOPT` if second argument is given.
-* Calls `hash -r` to clear the command-lookup hash-table.
 * Fuzzy matching of Rubies by name.
 * Defaults to the system Ruby.
 * Optionally supports auto-switching and the `.ruby-version` file.
-* Supports [bash], [zsh] and [fish].
+* Supports [fish] (see official [chruby] repository for [bash] and [zsh] support).
 * Small (~90 LOC).
 * Has tests.
 
@@ -30,45 +29,10 @@ Changes the current Ruby.
 
 ## Install
 
-    wget -O chruby-0.3.5.tar.gz https://github.com/postmodern/chruby/archive/v0.3.5.tar.gz
-    tar -xzvf chruby-0.3.5.tar.gz
-    cd chruby-0.3.5/
+    wget -O chruby-0.3.5.tar.gz https://github.com/JeanMertz/chruby-fish/archive/v0.3.5.1.tar.gz
+    tar -xzvf chruby-0.3.5.1.tar.gz
+    cd chruby-0.3.5.1/
     sudo make install
-
-### PGP
-
-All releases are [PGP] signed for security. Instructions on how to import my
-PGP key can be found on my [blog][1]. To verify that a release was not tampered
-with:
-
-    wget https://raw.github.com/postmodern/chruby/master/pkg/chruby-0.3.5.tar.gz.asc
-    gpg --verify chruby-0.3.5.tar.gz.asc chruby-0.3.5.tar.gz
-
-### setup.sh
-
-chruby also includes a `setup.sh` script, which installs chruby and the latest
-releases of [Ruby], [JRuby] and [Rubinius]. Simply run the script as root or
-via `sudo`:
-
-    sudo ./scripts/setup.sh
-
-### Homebrew
-
-chruby can also be installed with [homebrew]:
-
-    brew install chruby
-
-### Arch Linux
-
-chruby is already included in the [AUR]:
-
-    yaourt -S chruby
-
-### FreeBSD
-
-chruby is included in the official [FreeBSD ports collection]:
-
-    cd /usr/ports/devel/chruby/ && make install clean
 
 ### Rubies
 
@@ -102,32 +66,15 @@ Installing to `/opt/rubies`:
 
 ## Configuration
 
-### Bash and Zsh
-
-Add the following to the `/etc/profile.d/chruby.sh`, `~/.bashrc` or
-`~/.zshenv` file:
-
-    source /usr/local/share/chruby/chruby.sh
-
-By default chruby will search for Rubies installed into `/opt/rubies/` or
-`~/.rubies/`. For non-standard installation locations, simply set the
-`RUBIES` variable:
-
-    RUBIES=(
-      /opt/jruby-1.7.0
-      $HOME/src/rubinius
-    )
-
-### Fish shell
-
 Add the following to the `/etc/fish/config.fish` or `~/.config/fish/config.fish`
 file:
 
     . /usr/local/share/chruby/chruby.fish
 
-Setting the `RUBIES` variable in Fish is done in a slightly different way. Add
-the following to the above mentioned `config.fish` file before you source
-`chruby.fish`:
+By default chruby will search for Rubies installed into `/opt/rubies/` or
+`~/.rubies/`. For non-standard installation locations, simply set the
+`RUBIES` variable by adding the following to the above mentioned
+`config.fish` file before you source `chruby.fish`:
 
     set -xU RUBIES /opt/jruby-1.7.0 $HOME/src/rubinius
 
@@ -139,22 +86,12 @@ If you are migrating from another Ruby manager, set `RUBIES` accordingly:
 * [rbenv]: `RUBIES=(~/.rbenv/versions/*)`
 * [rbfu]: `RUBIES=(~/.rbfu/rubies/*)`
 
-### System Wide
-
-If you wish to enable chruby system-wide, add the following to
-`/etc/profile.d/chruby.sh`:
-
-    [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ] || return
-
-    source /usr/local/share/chruby/chruby.sh
-
 ### Auto-Switching
 
 If you want chruby to auto-switch the current version of Ruby when you `cd`
-between your different projects, simply load `auto.sh` in `~/.bash_profile`
-or `~/.zshrc`:
+between your different projects, simply load `auto.sh` in `config.fish`:
 
-    source /usr/local/share/chruby/auto.sh
+    source /usr/local/share/chruby/auto.fish
 
 chruby will check the current and parent directories for a [.ruby-version]
 file. Other Ruby switchers also understand this file:
@@ -162,25 +99,13 @@ https://gist.github.com/1912050
 
 ### Default Ruby
 
-If you wish to set a default Ruby, simply call `chruby` in `~/.bashrc` or
-`~/.zshrc`:
+If you wish to set a default Ruby, simply call `chruby` in `config.fish`:
 
     chruby ruby-1.9
 
 If you have enabled auto-switching, simply create a `.ruby-version` file:
 
     echo "ruby-1.9" > ~/.ruby-version
-
-### Integration
-
-For instructions on using chruby with other tools, please see the [wiki]:
-
-* [Emacs](https://github.com/arnebrasseur/chruby.el#readme)
-* [Cron](https://github.com/postmodern/chruby/wiki/Cron)
-* [Capistrano](https://github.com/postmodern/chruby/wiki/Capistrano)
-* [Emacs](https://github.com/arnebrasseur/chruby.el#readme)
-* [Pow](https://github.com/postmodern/chruby/wiki/Pow)
-* [Vim](https://github.com/postmodern/chruby/wiki/Vim)
 
 ## Examples
 
@@ -283,6 +208,7 @@ Switch to an arbitrary Ruby on the fly:
 
 [wiki]: https://github.com/postmodern/chruby/wiki
 
+[chruby]: https://github.com/postmodern/chruby
 [bash]: http://www.gnu.org/software/bash/
 [zsh]: http://www.zsh.org/
 [fish]: http://fishshell.com/
@@ -303,5 +229,3 @@ Switch to an arbitrary Ruby on the fly:
 [Ruby]: http://www.ruby-lang.org/en/
 [JRuby]: http://jruby.org/
 [Rubinius]: http://rubini.us/
-
-[1]: http://postmodern.github.com/contact.html#pgp
