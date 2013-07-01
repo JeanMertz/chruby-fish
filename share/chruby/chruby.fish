@@ -56,10 +56,10 @@ function chruby_use
   set -gx RUBYOPT $opts
   set PATH $RUBY_ROOT/bin $PATH
 
-  set -gx RUBY_ENGINE     (eval "$RUBY_ROOT/bin/ruby -e 'print RUBY_ENGINE'")
-  set -gx RUBY_VERSION    (eval "$RUBY_ROOT/bin/ruby -e 'print RUBY_VERSION'")
-  set -gx RUBY_PATCHLEVEL (eval "$RUBY_ROOT/bin/ruby -e 'print RUBY_PATCHLEVEL'")
-  set -gx GEM_ROOT        (eval "$RUBY_ROOT/bin/ruby -e 'print Gem.default_dir'")
+  set -gx RUBY_ENGINE     (ruby_variable 'RUBY_ENGINE')
+  set -gx RUBY_VERSION    (ruby_variable 'RUBY_VERSION')
+  set -gx RUBY_PATCHLEVEL (ruby_variable 'RUBY_PATCHLEVEL')
+  set -gx GEM_ROOT        (ruby_variable 'Gem.default_dir')
 
   if test "$UID" != "0"
     if set -gq GEM_ROOT
@@ -78,6 +78,18 @@ function chruby_use
 
   status -i; and echo "Using $RUBY_ENGINE-$RUBY_VERSION"
   return 0
+end
+
+function ruby_variable
+  if test "$argv" = "RUBY_ENGINE"
+    eval "$RUBY_ROOT/bin/ruby -e 'begin; require \'rubygems\'; rescue LoadError; end; print defined?(RUBY_ENGINE) ? RUBY_ENGINE : \'ruby\''"
+  else if test "$argv" = "Gem.default_dir"
+    if test (eval "$RUBY_ROOT/bin/ruby -e 'print defined?(Gem) ? \"0\" : \"1\"'") = "0"
+      eval "$RUBY_ROOT/bin/ruby -e 'begin; require \'rubygems\'; rescue LoadError; end; print Gem.default_dir.inspect'"
+    end
+  else
+    eval "$RUBY_ROOT/bin/ruby -e 'begin; require \'rubygems\'; rescue LoadError; end; print $argv'"
+  end
 end
 
 function chruby
