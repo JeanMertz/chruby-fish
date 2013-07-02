@@ -61,9 +61,12 @@ function it_resets_ruby_when_leaving_versioned_directory
 end
 
 function it_keeps_current_ruby_when_loading_unknown_version
+	set -l expected_auto_version (cat "$PROJECT_DIR/bad/.ruby-version")
+
 	cd "$PROJECT_DIR"; chruby_auto
 	cd bad/; chruby_auto 2>/dev/null
-	test "$TEST_RUBY_ROOT" = "$RUBY_ROOT"
+	test "$TEST_RUBY_ROOT" = "$RUBY_ROOT";
+	and test "$expected_auto_version" = "$RUBY_AUTO_VERSION"
 end
 
 function it_detects_modified_ruby_version_file

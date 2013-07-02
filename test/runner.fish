@@ -6,6 +6,7 @@ end
 
 log "Running tests under $SHELL in interactive-mode ..."
 set error 0
+set -U tank_reporter spec
 
 echo $argv | read -l test_path opts
 

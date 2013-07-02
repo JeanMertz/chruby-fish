@@ -5,6 +5,7 @@ function chruby_auto --on-event fish_prompt
   set -l dir (pwd)
   set -l found ''
   set -l rversion ''
+  set -l status_code 0
 
   while not test "$dir" = '/'
     set version_file "$dir/.ruby-version"
@@ -17,9 +18,9 @@ function chruby_auto --on-event fish_prompt
         break
       else
         set found 'true'
-        chruby "$rversion"; or return 1
-
         set -gx RUBY_AUTO_VERSION "$rversion"
+
+        chruby "$rversion"; or set status_code 1
         break
       end
     end
@@ -28,6 +29,8 @@ function chruby_auto --on-event fish_prompt
     set dir (pwd)
   end
   cd $org
+
+  test $status_code = 1; and return 1
 
   if test -z "$found"; and test -n "$RUBY_AUTO_VERSION"
     chruby_reset
