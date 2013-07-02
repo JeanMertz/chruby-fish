@@ -1,3 +1,5 @@
+/bin/bash ./test/setup
+
 function log
   echo -e "\x1b[1m\x1b[32m>>>\x1b[0m \x1b[1m\x1b[37m{$argv}\x1b[0m"
 end
