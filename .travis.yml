@@ -1,10 +1,18 @@
+language: c
+
 install:
+  - sudo apt-get update -qq
+  - sudo apt-get install ruby
   - wget http://fishshell.com/files/2.0.0/linux/Ubuntu_12.10/x86_64/fish_2.0.0-201305151006_amd64.deb
   - sudo dpkg -i fish_2.0.0-201305151006_amd64.deb
   - git clone git://github.com/terlar/fish-tank.git
   - cd fish-tank
   - sudo make install
   - cd ..
+
+before_script:
+  - echo yes | rvm implode
+  - __rvm_unload
 
 script:
   - fish test/runner.fish
