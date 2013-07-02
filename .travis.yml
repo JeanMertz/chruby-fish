@@ -1,0 +1,10 @@
+install:
+  - wget http://fishshell.com/files/2.0.0/linux/Ubuntu_12.10/x86_64/fish_2.0.0-201305151006_amd64.deb
+  - sudo dpkg -i fish_2.0.0-201305151006_amd64.deb
+  - git clone git://github.com/terlar/fish-tank.git
+  - cd fish-tank
+  - sudo make install
+  - cd ..
+
+script:
+  - fish test/runner.fish
