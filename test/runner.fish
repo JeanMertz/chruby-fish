@@ -20,3 +20,5 @@ for test in (dirname (status -f))/fish/*_test.fish
   command fish $test $opts; or set error 1
   echo
 end
+
+exit $error
