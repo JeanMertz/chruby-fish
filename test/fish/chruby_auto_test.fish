@@ -53,9 +53,11 @@ function it_overrides_ruby_set_in_ruby_version_file
 end
 
 function it_resets_ruby_when_leaving_versioned_directory
-	cd "$PROJECT_DIR"; and chruby_auto >/dev/null
-	cd "$PROJECT_DIR/.."; and chruby_auto
-	test "$RUBY_ROOT" = ''
+	if test -f ~/.ruby-version; mv ~/.ruby-version ~/.ruby-version.tmp; end
+	cd $PROJECT_DIR; and chruby_auto >/dev/null
+	cd $PROJECT_DIR/..; and chruby_auto
+	if test -f ~/.ruby-version.tmp; mv ~/.ruby-version.tmp ~/.ruby-version; end
+	test "$RUBY_ROOT" = ""
 end
 
 function it_keeps_current_ruby_when_loading_unknown_version
