@@ -85,7 +85,7 @@ function ruby_variable
     eval "$RUBY_ROOT/bin/ruby -e 'begin; require \'rubygems\'; rescue LoadError; end; print defined?(RUBY_ENGINE) ? RUBY_ENGINE : \'ruby\''"
   else if test "$argv" = "Gem.default_dir"
     if test (eval "$RUBY_ROOT/bin/ruby -e 'print defined?(Gem) ? \"0\" : \"1\"'") = "0"
-      eval "$RUBY_ROOT/bin/ruby -e 'begin; require \'rubygems\'; rescue LoadError; end; print Gem.default_dir.inspect'"
+      eval "$RUBY_ROOT/bin/ruby -e 'begin; require \'rubygems\'; rescue LoadError; end; print Gem.default_dir'"
     end
   else
     eval "$RUBY_ROOT/bin/ruby -e 'begin; require \'rubygems\'; rescue LoadError; end; print $argv'"
