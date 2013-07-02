@@ -6,7 +6,7 @@ set PROJECT_DIR "$PWD/test/project"
 
 function setup_tank
 	chruby_reset
-	set -eg RUBY_VERSION_FILE
+	set -eg RUBY_AUTO_VERSION
 end
 
 function it_auto_loads_chruby_in_fish_shell
@@ -19,9 +19,9 @@ function it_only_loads_chruby_auto_function_once
 end
 
 function it_unsets_ruby_version_file
-	set -g RUBY_VERSION_FILE 'dirty'
+	set -g RUBY_AUTO_VERSION 'dirty'
 	. ./share/chruby/auto.fish
-	test "$RUBY_VERSION_FILE" = ''
+	test "$RUBY_AUTO_VERSION" = ''
 end
 
 function it_switches_ruby_when_entering_versioned_directory
@@ -64,6 +64,14 @@ function it_keeps_current_ruby_when_loading_unknown_version
 	cd "$PROJECT_DIR"; chruby_auto
 	cd bad/; chruby_auto 2>/dev/null
 	test "$TEST_RUBY_ROOT" = "$RUBY_ROOT"
+end
+
+function it_detects_modified_ruby_version_file
+  cd "$PROJECT_DIR/modified_version"; and chruby_auto
+  echo '1.9.3' > .ruby-version; and chruby_auto
+  echo 'system' > .ruby-version # reset
+
+  test "$TEST_RUBY_ROOT" = "$RUBY_ROOT"
 end
 
 function clean_tank
