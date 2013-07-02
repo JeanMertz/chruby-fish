@@ -37,20 +37,6 @@ function it_finds_ruby_in_path
 	test "$TEST_RUBY_ROOT/bin/ruby" = (which ruby)
 end
 
-function it_prints_ruby_version_in_interactive_mode
-	builtin status -i; or return 0
-	set -l output (chruby_use "$TEST_RUBY_ROOT")
-
-	test "Using $TEST_RUBY_ENGINE-$TEST_RUBY_VERSION" = "$output"
-end
-
-function it_does_not_print_ruby_version_in_non_interactive_mode
-	builtin status -i; and return 0
-	set -l output (chruby_use "$TEST_RUBY_ROOT")
-
-	test "$output" = ''
-end
-
 function clean_tank
   set -eU RUBIES
   chruby_reset

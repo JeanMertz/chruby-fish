@@ -75,9 +75,6 @@ function chruby_use
     set -gx GEM_PATH $GEM_HOME $GEM_ROOT $GEM_PATH
     set PATH "$GEM_HOME/bin" $PATH
   end
-
-  status -i; and echo "Using $RUBY_ENGINE-$RUBY_VERSION"
-  return 0
 end
 
 function ruby_variable
