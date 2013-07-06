@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/JeanMertz/chruby-fish.png?branch=master)](https://travis-ci.org/JeanMertz/chruby-fish)
+
 # chruby-fish
 
 Changes the current Ruby.
