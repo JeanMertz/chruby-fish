@@ -32,7 +32,7 @@ function chruby_auto --on-event fish_prompt
 
   test $status_code = 1; and return 1
 
-  if test -z "$found"; and test -n "$RUBY_AUTO_VERSION"
+  if begin; test -z "$found"; and test -n "$RUBY_AUTO_VERSION"; end
     chruby_reset
     set -e RUBY_AUTO_VERSION
   end
