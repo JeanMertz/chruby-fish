@@ -31,7 +31,7 @@ Changes the current Ruby.
 
 ## Install
 
-    wget -O chruby-0.3.5.tar.gz https://github.com/JeanMertz/chruby-fish/archive/v0.3.5.1.tar.gz
+    wget -O chruby-0.3.5.1.tar.gz https://github.com/JeanMertz/chruby-fish/archive/v0.3.5.1.tar.gz
     tar -xzvf chruby-0.3.5.1.tar.gz
     cd chruby-0.3.5.1/
     sudo make install
