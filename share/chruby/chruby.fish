@@ -83,7 +83,8 @@ function chruby_use
 
     if test "$path_entry" = "bin" -o "$path_entry" = "./bin" -o "$path_entry" = "bin/" -o "$path_entry" = "./bin/"
       set -e PATH[$i]
-      set PATH "$path_entry" $PATH
+      # Ignore warnings from set if the bin dir doesn't exist in the current directory
+      set PATH "$path_entry" $PATH ^/dev/null
       break
     end
   end
