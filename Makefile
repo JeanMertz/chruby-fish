@@ -52,9 +52,9 @@ release: tag download sign
 
 install:
 	for dir in $(INSTALL_DIRS); do mkdir -p $(PREFIX)/$$dir; done
-	for file in $(INSTALL_FILES); do cp $$file $(PREFIX)/$$file; done
+	for file in $(INSTALL_FILES); do cp -v $$file $(PREFIX)/$$file; done
 	mkdir -p $(DOC_DIR)
-	cp -r $(DOC_FILES) $(DOC_DIR)/
+	cp -vr $(DOC_FILES) $(DOC_DIR)/
 
 uninstall:
 	for file in $(INSTALL_FILES); do rm -f $(PREFIX)/$$file; done
