@@ -81,9 +81,9 @@ function chruby_use
   for i in (seq (count $PATH))
     set -l path_entry $PATH[$i]
 
-    if test "$path_entry" = "bin"; or test "$path_entry" = "./bin"; or test "$path_entry" = "bin/"; or test "$path_entry" = "./bin/"
+    if test "$path_entry" = "bin" -o "$path_entry" = "./bin" -o "$path_entry" = "bin/" -o "$path_entry" = "./bin/"
       set -e PATH[$i]
-      set PATH $path_entry $PATH
+      set PATH "$path_entry" $PATH
       break
     end
   end
