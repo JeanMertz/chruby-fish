@@ -75,6 +75,19 @@ function chruby_use
     set -gx GEM_PATH $GEM_HOME $GEM_ROOT $GEM_PATH
     set PATH "$GEM_HOME/bin" $PATH
   end
+
+  # The following moves the path entry for './bin' (and it's varieties) to the front
+  # of PATH so that binstubs are not overridden by the the rubygems install.
+  for i in (seq (count $PATH))
+    set -l path_entry $PATH[$i]
+
+    if test "$path_entry" = "bin" -o "$path_entry" = "./bin" -o "$path_entry" = "bin/" -o "$path_entry" = "./bin/"
+      set -e PATH[$i]
+      # Ignore warnings from set if the bin dir doesn't exist in the current directory
+      set PATH "$path_entry" $PATH ^/dev/null
+      break
+    end
+  end
 end
 
 function ruby_variable
