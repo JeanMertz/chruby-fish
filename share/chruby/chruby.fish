@@ -98,14 +98,14 @@ end
 #
 # Custom `chruby` command to be called in the Fish environment.
 #
-# Thin wrapper around the bash version of `chruby`, passing allong arguments to
+# Thin wrapper around the bash version of `chruby`, passing along arguments to
 # it, and capturing the outputted environment variables to be set in Fish.
 #
 function chruby
   set -l external_commands '-h' '--help' '-V' '--version'
 
   if test -z "$argv"
-    bchruby 'chruby' $argv
+    bchruby 'chruby'
   else if echo $external_commands | grep -q -e "$argv[1]"
     bchruby 'chruby' $argv
   else if test $argv[1] = 'system'
