@@ -1,6 +1,6 @@
-NAME=chruby
-VERSION=0.3.5
-AUTHOR=postmodern
+NAME=chruby-fish
+VERSION=0.5.0
+AUTHOR=JeanMertz
 URL=https://github.com/$(AUTHOR)/$(NAME)
 
 DIRS=etc lib bin sbin share
@@ -11,7 +11,6 @@ DOC_FILES=*.md *.txt
 PKG_DIR=pkg
 PKG_NAME=$(NAME)-$(VERSION)
 PKG=$(PKG_DIR)/$(PKG_NAME).tar.gz
-SIG=$(PKG).asc
 
 PREFIX?=/usr/local
 DOC_DIR=$(PREFIX)/share/doc/$(PKG_NAME)
@@ -25,39 +24,26 @@ download: pkg
 build: pkg
 	git archive --output=$(PKG) --prefix=$(PKG_NAME)/ HEAD
 
-sign: $(PKG)
-	gpg --sign --detach-sign --armor $(PKG)
-	git add $(PKG).asc
-	git commit $(PKG).asc -m "Added PGP signature for v$(VERSION)"
-	git push
-
-verify: $(PKG) $(SIG)
-	gpg --verify $(SIG) $(PKG)
-
 clean:
-	rm -f $(PKG) $(SIG)
+	rm -f $(PKG)
 
-all: $(PKG) $(SIG)
-
-test:
-	SHELL=`which bash` ./test/runner -norc 
-	SHELL=`which zsh`  ./test/runner -d -f
+all: $(PKG)
 
 tag:
-	git push
-	git tag -s -m "Tagging $(VERSION)" v$(VERSION)
-	git push --tags
+	git push origin master
+	git tag -s -m "Releasing $(VERSION)" v$(VERSION)
+	git push origin master --tags
 
-release: tag download sign
+release: tag download
 
 install:
 	for dir in $(INSTALL_DIRS); do mkdir -p $(PREFIX)/$$dir; done
-	for file in $(INSTALL_FILES); do cp -v $$file $(PREFIX)/$$file; done
+	for file in $(INSTALL_FILES); do cp $$file $(PREFIX)/$$file; done
 	mkdir -p $(DOC_DIR)
-	cp -vr $(DOC_FILES) $(DOC_DIR)/
+	cp -r $(DOC_FILES) $(DOC_DIR)/
 
 uninstall:
 	for file in $(INSTALL_FILES); do rm -f $(PREFIX)/$$file; done
 	rm -rf $(DOC_DIR)
 
-.PHONY: build download sign verify clean test tag release install uninstall all
+.PHONY: build download clean tag release install uninstall all

@@ -1,46 +1,3 @@
-# chruby-fish
-
-[![Gittip](http://img.shields.io/gittip/JeanMertz.svg)][gittip]
-
-Thin wrapper around [chruby][] to make it work with the [Fish shell][]
-
-[chruby]: https://github.com/postmodern/chruby
-[Fish shell]: http://fishshell.com
-
-## install
-
-Place `chruby.fish` file next to `chruby.sh` (by default in
-`/usr/local/share/chruby/`).
-
-Add the following line to your `config.fish` file:
-
-    source /usr/local/share/chruby/chruby.fish
-
-To enable auto-switching, also add the `auto.fish` file:
-
-    source /usr/local/share/chruby/auto.fish
-
-See the [chruby documentation][] for more details.
-
-[chruby documentation]: https://github.com/postmodern/chruby#chruby
-
-## Homebrew
-
-chruby-fish can also be installed with [homebrew]:
-
-    brew install https://github.com/JeanMertz/chruby-fish/blob/master/homebrew/chruby-fish.rb
-
-Or the absolute latest chruby-fish can be installed from source:
-
-    brew install https://github.com/JeanMertz/chruby-fish/blob/master/homebrew/chruby-fish.rb --HEAD
-
-[homebrew]: http://brew.sh/
-
-## License & Authors
-
-- Author: Jean Mertz <jean@mertz.fm>
-
-```text
 The MIT License (MIT)
 
 Copyright (c) 2014 Jean Mertz <jean@mertz.fm>
@@ -62,4 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-```
