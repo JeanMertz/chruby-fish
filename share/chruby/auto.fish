@@ -32,7 +32,9 @@
 # You can optionally set the $CHRUBY_SOURCE environment variable if your
 # `chruby.sh` and `auto.sh` are located in a custom path.
 #
-function chruby_auto --on-event fish_prompt
+function chruby_auto --on-variable PWD
+  status --is-command-substitution; and return
+
   set -q CHRUBY_SOURCE; or set CHRUBY_SOURCE /usr/local/share/chruby/chruby.sh
   set -l source_dir (dirname "$CHRUBY_SOURCE")
 
