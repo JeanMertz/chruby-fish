@@ -3,7 +3,7 @@ require 'formula'
 class ChrubyFish < Formula
   homepage 'https://github.com/JeanMertz/chruby-fish#readme'
   url 'https://github.com/JeanMertz/chruby-fish/archive/v0.5.1.tar.gz'
-  sha1 '45b189d01b66987ad37bae821b1f5f0675999975'
+  sha1 'b6bf11ee6a5b3a9553bceb43bf56c733d68f1dd4'
 
   head 'https://github.com/JeanMertz/chruby-fish.git'
 
