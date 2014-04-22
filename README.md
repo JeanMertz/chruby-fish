@@ -29,11 +29,11 @@ See the [chruby documentation][] for more details.
 
 chruby-fish can also be installed with [homebrew]:
 
-    brew install https://github.com/JeanMertz/chruby-fish/blob/master/homebrew/chruby-fish.rb
+    brew install https://raw.githubusercontent.com/JeanMertz/chruby-fish/master/homebrew/chruby-fish.rb
 
 Or the absolute latest chruby-fish can be installed from source:
 
-    brew install https://github.com/JeanMertz/chruby-fish/blob/master/homebrew/chruby-fish.rb --HEAD
+    brew install https://raw.githubusercontent.com/JeanMertz/chruby-fish/master/homebrew/chruby-fish.rb --HEAD
 
 [homebrew]: http://brew.sh/
 
