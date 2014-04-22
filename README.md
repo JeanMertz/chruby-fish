@@ -4,6 +4,7 @@
 
 Thin wrapper around [chruby][] to make it work with the [Fish shell][]
 
+[gittip]: https://www.gittip.com/JeanMertz
 [chruby]: https://github.com/postmodern/chruby
 [Fish shell]: http://fishshell.com
 
