@@ -1,5 +1,5 @@
 NAME=chruby-fish
-VERSION=0.5.1
+VERSION=0.5.2
 AUTHOR=JeanMertz
 URL=https://github.com/$(AUTHOR)/$(NAME)
 
@@ -11,6 +11,7 @@ DOC_FILES=*.md LICENSE
 PKG_DIR=pkg
 PKG_NAME=$(NAME)-$(VERSION)
 PKG=$(PKG_DIR)/$(PKG_NAME).tar.gz
+SIG=$(PKG).asc
 
 PREFIX?=/usr/local
 DOC_DIR=$(PREFIX)/share/doc/$(PKG_NAME)
@@ -24,17 +25,31 @@ download: pkg
 build: pkg
 	git archive --output=$(PKG) --prefix=$(PKG_NAME)/ HEAD
 
-clean:
-	rm -f $(PKG)
+sign: $(PKG)
+	gpg --sign --detach-sign --armor $(PKG)
+	git add $(PKG).asc
+	git commit $(PKG).asc -m "Added PGP signature for v$(VERSION)"
+	git push origin master
 
-all: $(PKG)
+verify: $(PKG) $(SIG)
+	gpg --verify $(SIG) $(PKG)
+
+clean:
+	rm -f $(PKG) $(SIG)
+
+all: $(PKG) $(SIG)
 
 tag:
 	git push origin master
 	git tag -s -m "Releasing $(VERSION)" v$(VERSION)
 	git push origin master --tags
 
-release: tag download
+release: tag download sign
+
+rpm:
+	rpmdev-setuptree
+	spectool -g -R rpm/chruby.spec
+	rpmbuild -ba rpm/chruby.spec
 
 install:
 	for dir in $(INSTALL_DIRS); do mkdir -p $(PREFIX)/$$dir; done
@@ -46,4 +61,4 @@ uninstall:
 	for file in $(INSTALL_FILES); do rm -f $(PREFIX)/$$file; done
 	rm -rf $(DOC_DIR)
 
-.PHONY: build download clean tag release install uninstall all
+.PHONY: build download sign verify clean tag release rpm install uninstall all
