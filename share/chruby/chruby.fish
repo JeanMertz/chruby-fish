@@ -31,6 +31,9 @@
 # You can optionally set the $CHRUBY_SOURCE environment variable if your
 # `chruby.sh` is located in a custom path.
 #
+set -gx CHRUBY_FISH_VERSION '0.5.2'
+set -gx RUBIES (bchruby 'echo ${RUBIES[@]}' | tr ' ' '\n')
+
 function bchruby
   set -q CHRUBY_SOURCE; or set CHRUBY_SOURCE /usr/local/share/chruby/chruby.sh
 
