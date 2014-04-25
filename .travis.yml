@@ -16,7 +16,8 @@ install:
   - cd ..
 
 before_script:
-  - echo yes | rvmsudo implode
+  - echo yes | rvm implode
+  - sudo rm /etc/profile.d/rvm.sh
   - __rvm_unload
   - test/setup
 
