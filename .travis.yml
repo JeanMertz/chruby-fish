@@ -1,0 +1,17 @@
+language: c
+
+install:
+  - sudo apt-get update -qq
+  - wget http://fishshell.com/files/2.1.0/linux/Ubuntu/fish_2.1.0-1~precise_amd64.deb
+  - sudo dpkg -i fish_2.1.0-1~precise_amd64.deb
+  - git clone git://github.com/terlar/fish-tank.git
+  - cd fish-tank
+  - sudo make install
+  - cd ..
+
+before_script:
+  - echo yes | rvm implode
+  - __rvm_unload
+
+script:
+  - fish test/runner
