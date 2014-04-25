@@ -16,8 +16,8 @@ install:
   - cd ..
 
 before_script:
-  - echo yes | rvm implode
-  - __rvm_unload
+  - echo yes | sudo rvm implode
+  - sudo __rvm_unload
   - test/setup
 
 script:
