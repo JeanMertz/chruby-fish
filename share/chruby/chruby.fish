@@ -57,7 +57,7 @@ function chruby_reset
   bchruby 'chruby_reset; echo $PATH ${GEM_PATH:-_}' | \
     read -l ch_path ch_gem_path
 
-  if test "$UID" != '0'
+  if test (id -u) != '0'
     set -e GEM_HOME
     set -e GEM_ROOT
     test $GEM_PATH = '_'; and set -e GEM_PATH; or set -gx GEM_PATH $ch_gem_path
@@ -93,7 +93,7 @@ function chruby_use
   test $ch_rubyopt = '_'; or set -gx RUBYOPT $ch_rubyopt
   set -gx PATH (echo $ch_path | tr : '\n')
 
-  if test "$UID" != '0'
+  if test (id -u) != '0'
     set -gx GEM_HOME $ch_gem_home
     set -gx GEM_PATH $ch_gem_path
   end
