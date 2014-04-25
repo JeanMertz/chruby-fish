@@ -13,7 +13,7 @@ source (dirname (status -f))/../share/chruby/chruby.fish
 chruby_reset
 
 set -g test_ruby_engine 'ruby'
-set -g test_ruby_version '2.1.1'
+set -g test_ruby_version '2.1.0'
 set -g test_ruby_api '2.1.0'
 set -g test_ruby_root "$PWD/test/opt/rubies/$test_ruby_engine-$test_ruby_version"
 

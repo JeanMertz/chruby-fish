@@ -9,7 +9,7 @@ function suite_chruby
   end
 
   function test_chruby_multiple_matches
-    set -g RUBIES /path/to/ruby-2.1.1 "$test_ruby_root"
+    set -g RUBIES /path/to/ruby-2.1.0 "$test_ruby_root"
 
     chruby '2.1'
     assert_equal "$test_ruby_root" "$RUBY_ROOT"

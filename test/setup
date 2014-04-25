@@ -53,7 +53,6 @@ function detect_system() {
         system_name="ubuntu"
         system_version="$(awk -F'=' '$1=="DISTRIB_RELEASE"{print $2}' /etc/lsb-release)"
         system_arch="$(dpkg --print-architecture)"
-        test_ruby_version="2.1.0"
       elif [[ -f /etc/lsb-release ]] &&
            [[ "$(< /etc/lsb-release)" == *"DISTRIB_ID=LinuxMint"* ]]
       then

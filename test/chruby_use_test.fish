@@ -1,6 +1,6 @@
 function suite_chruby_use
   function setup
-    chruby_use '2.1.1'
+    chruby_use '2.1.0'
   end
 
   function test_chruby_use
