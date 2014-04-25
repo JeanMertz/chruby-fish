@@ -60,7 +60,12 @@ function chruby_reset
   if test (id -u) != '0'
     set -e GEM_HOME
     set -e GEM_ROOT
-    test $GEM_PATH = '_'; and set -e GEM_PATH; or set -gx GEM_PATH $ch_gem_path
+
+    if test "$ch_gem_path" = '_'
+      set -e GEM_PATH
+    else
+      set -gx GEM_PATH $ch_gem_path
+    end
   end
 
   set -gx PATH (echo $ch_path | tr : '\n')
