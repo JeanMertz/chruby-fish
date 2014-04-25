@@ -116,5 +116,7 @@ function chruby
     chruby_reset
   else if bchruby 'chruby' $argv
     chruby_use $argv
+  else
+    return 1
   end
 end
