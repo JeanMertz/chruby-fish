@@ -1,9 +1,11 @@
 # chruby-fish
 
+[![Build Status](http://img.shields.io/travis/JeanMertz/chruby-fish.svg)][travis]
 [![Gittip](http://img.shields.io/gittip/JeanMertz.svg)][gittip]
 
 Thin wrapper around [chruby][] to make it work with the [Fish shell][]
 
+[travis]: http://travis-ci.org/JeanMertz/chruby-fish
 [gittip]: https://www.gittip.com/JeanMertz
 [chruby]: https://github.com/postmodern/chruby
 [Fish shell]: http://fishshell.com
