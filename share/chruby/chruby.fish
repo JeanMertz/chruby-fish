@@ -85,11 +85,11 @@ end
 function chruby_use
   test -n "$RUBY_ROOT"; and chruby_reset
 
-  set -l args '; echo $RUBY_ROOT ${RUBYOPT:-_} $GEM_HOME $GEM_PATH $PATH \
-                      ${GEM_ROOT:-_} $RUBY_ENGINE $RUBY_VERSION'
+  set -l args '; echo $RUBY_ROOT ${RUBYOPT:-_} ${GEM_HOME:-_} ${GEM_PATH:-_} \
+                      ${GEM_ROOT:-_} $PATH $RUBY_ENGINE $RUBY_VERSION'
 
   bchruby 'chruby' $argv $args | read -l ch_ruby_root ch_rubyopt ch_gem_home \
-                                         ch_gem_path ch_path ch_gem_root \
+                                         ch_gem_path ch_gem_root ch_path \
                                          ch_ruby_engine ch_ruby_version
 
   set -gx RUBY_ENGINE $ch_ruby_engine
