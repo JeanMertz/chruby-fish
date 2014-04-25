@@ -18,6 +18,7 @@ install:
 before_script:
   - echo yes | rvm implode
   - __rvm_unload
+  - test/setup
 
 script:
   - fish test/runner
