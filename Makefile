@@ -1,5 +1,5 @@
 NAME=chruby-fish
-VERSION=0.5.3
+VERSION=0.5.4
 AUTHOR=JeanMertz
 URL=https://github.com/$(AUTHOR)/$(NAME)
 
@@ -39,6 +39,12 @@ clean:
 
 all: $(PKG) $(SIG)
 
+test/opt/rubies:
+	./test/setup
+
+test: test/opt/rubies
+	fish ./test/runner
+
 tag:
 	git push origin master
 	git tag -s -m "Releasing $(VERSION)" v$(VERSION)
@@ -61,4 +67,4 @@ uninstall:
 	for file in $(INSTALL_FILES); do rm -f $(PREFIX)/$$file; done
 	rm -rf $(DOC_DIR)
 
-.PHONY: build download sign verify clean tag release rpm install uninstall all
+.PHONY: build download sign verify clean test tag release rpm install uninstall all
