@@ -1,6 +1,6 @@
 function suite_chruby_reset
   function setup
-    chruby_use '2.1.0'
+    chruby_use $test_ruby_version
     set -g PATH "$RUBY_ROOT/bin" $test_path
   end
 
