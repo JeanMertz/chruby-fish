@@ -40,7 +40,6 @@ function chruby_auto --on-variable PWD
 
   command bash -c "source $source_dir/chruby.sh; \
                    source $source_dir/auto.sh; \
-                   chruby_auto; \
                    echo \$RUBY_ENGINE \$RUBY_VERSION" | \
                    read -l ch_ruby_engine ch_ruby_version
 
