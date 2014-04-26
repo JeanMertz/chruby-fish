@@ -1,25 +1,18 @@
-language: c
+language: objective-c
 
 install:
-  - sudo apt-get update -qq
-  - sudo apt-get -y install bc
-  - wget http://fishshell.com/files/2.1.0/linux/Ubuntu/fish_2.1.0-1~precise_amd64.deb
-  - sudo dpkg -i fish_2.1.0-1~precise_amd64.deb
+  - brew update
+  - brew install fish
+  - brew install chruby
   - git clone git://github.com/terlar/fish-tank.git
   - cd fish-tank
-  - sudo make install
-  - cd ..
-  - wget -O chruby-0.3.8.tar.gz https://github.com/postmodern/chruby/archive/v0.3.8.tar.gz
-  - tar -xzvf chruby-0.3.8.tar.gz
-  - cd chruby-0.3.8/
   - sudo make install
   - cd ..
 
 before_script:
   - echo yes | rvm implode
-  - sudo rm /etc/profile.d/rvm.sh
   - __rvm_unload
-  - test/setup
+  - sudo mkdir -p /usr/gnu/bin
 
 script:
-  - fish -i test/runner
+  - make test
