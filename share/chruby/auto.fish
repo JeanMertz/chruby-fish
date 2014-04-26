@@ -40,10 +40,22 @@ function chruby_auto --on-variable PWD
 
   command bash -c "source $source_dir/chruby.sh; \
                    source $source_dir/auto.sh; \
-                   echo \$RUBY_ENGINE \$RUBY_VERSION" | \
-                   read -l ch_ruby_engine ch_ruby_version
+                   echo \$RUBY_AUTO_VERSION" 2>/dev/null | \
+                   read -l ch_ruby_auto_version
 
-  if test -n "$ch_ruby_engine"; and test -n "$ch_ruby_version"
-    chruby "$ch_ruby_engine-$ch_ruby_version"
+  # if non-equal, either `chruby` ran, or no .ruby-version was detected. If
+  # equal, a .ruby-version was detected, but it equals active
+  # RUBY_AUTO_VERSION, so we return quickly.
+  #
+  if test "$ch_ruby_auto_version" != "$RUBY_AUTO_VERSION"
+    set -gx RUBY_AUTO_VERSION $ch_ruby_auto_version
+
+    if test -n "$RUBY_AUTO_VERSION"
+      chruby "$RUBY_AUTO_VERSION"
+    else
+      chruby_reset
+    end
+  else
+    return
   end
 end
