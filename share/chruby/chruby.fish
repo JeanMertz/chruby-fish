@@ -122,6 +122,9 @@ function chruby
     bchruby 'chruby'
   else if echo $external_commands | grep -q -e "$argv[1]"
     bchruby 'chruby' $argv
+    if test "$argv[1]" = '-V' -o "$argv[1]" = '--version'
+      echo 'chruby-fish:' $CHRUBY_FISH_VERSION
+    end
   else if test $argv[1] = 'system'
     chruby_reset
   else if bchruby 'chruby' $argv
