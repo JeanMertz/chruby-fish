@@ -3,6 +3,24 @@ function suite_chruby
     assert_equal "$test_ruby_root" "$RUBIES"
   end
 
+  function test_chruby_version
+    set chruby_fish_version (chruby --version)
+    set chruby_fish_V (chruby -V)
+    set expected_output "chruby: $CHRUBY_VERSION chruby-fish: $CHRUBY_FISH_VERSION"
+
+    assert_equal "$expected_output" "$chruby_fish_version"
+    assert_equal "$expected_output" "$chruby_fish_V"
+  end
+
+  function test_chruby_help
+    set chruby_fish_help (chruby --help)
+    set chruby_fish_h (chruby -h)
+    set expected_output 'usage: chruby [RUBY|VERSION|system] [RUBY_OPTS]'
+
+    assert_equal "$expected_output" "$chruby_fish_help"
+    assert_equal "$expected_output" "$chruby_fish_h"
+  end
+
   function test_chruby_2_1
     chruby '2.1'
     assert_equal "$test_ruby_root" "$RUBY_ROOT"
