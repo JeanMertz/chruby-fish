@@ -7,23 +7,30 @@ function log
   echo -e "\x1b[1m\x1b[32m>>>\x1b[0m \x1b[1m\x1b[37m{$argv}\x1b[0m"
 end
 
-log "Running tests under $SHELL in interactive-mode ..."
 set -e TEST_ERROR
 set -Ux TEST_ERROR 0
 set -U tank_reporter spec
 
-echo $argv | read -l test_path other
+set fish_app_bin 'fish.app/Contents/Resources/base/bin/fish'
+set fish_binaries "$PREFIX/fish_binaries/fish-2.1.0/$fish_app_bin" \
+                  (which fish)
+                  # => https://github.com/terlar/fish-tank/pull/2#issuecomment-41700221
+                  # "$PREFIX/fish_binaries/fish-2.0.0/$fish_app_bin"
 
-for test in (dirname (status -f))/*_test.fish
-  log "Running $test ..."
-  env HOME=$PREFIX/home fish -i $test
-end
+for fish_binary in $fish_binaries
+  log "Running tests under $fish_binary in interactive-mode ..."
 
-log "Running tests under $SHELL in non-interactive-mode ..."
+  for test in (dirname (status -f))/*_test.fish
+    log "Running $test ..."
+    env HOME=$PREFIX/home $fish_binary -i $test
+  end
 
-for test in (dirname (status -f))/*_test.fish
-  log "Running $test ..."
-  env HOME=$PREFIX/home fish $test
+  log "Running tests under $fish_binary in non-interactive-mode ..."
+
+  for test in (dirname (status -f))/*_test.fish
+    log "Running $test ..."
+    env HOME=$PREFIX/home $fish_binary $test
+  end
 end
 
 set exit_code $TEST_ERROR

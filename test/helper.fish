@@ -8,8 +8,8 @@ if not test -e $fish_tank
   exit 1
 end
 
-source $fish_tank
-source (dirname (status -f))/../share/chruby/chruby.fish
+. $fish_tank
+. (dirname (status -f))/../share/chruby/chruby.fish
 chruby_reset
 
 set -g test_ruby_engine 'ruby'

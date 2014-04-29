@@ -1,4 +1,4 @@
-source (dirname (status -f))/../share/chruby/auto.fish
+. (dirname (status -f))/../share/chruby/auto.fish
 
 function suite_chruby_auto
   function setup
@@ -65,7 +65,7 @@ function suite_chruby_auto
 end
 
 if not set -q tank_running
-  source (dirname (status -f))/helper.fish
+  . (dirname (status -f))/helper.fish
   tank_run
   reset_system_defaults
 end

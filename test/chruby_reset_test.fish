@@ -41,7 +41,7 @@ function suite_chruby_reset
 end
 
 if not set -q tank_running
-  source (dirname (status -f))/helper.fish
+  . (dirname (status -f))/helper.fish
   tank_run
   reset_system_defaults
 end
