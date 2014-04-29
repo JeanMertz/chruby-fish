@@ -2,7 +2,6 @@ language: objective-c
 
 install:
   - brew update
-  - brew install fish
   - brew install chruby
   - git clone git://github.com/terlar/fish-tank.git
   - cd fish-tank

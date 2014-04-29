@@ -176,7 +176,7 @@ cd $PREFIX/fish_binaries
 declare -a fish_versions=('2.0.0' '2.1.0' 'HEAD')
 for fish_version in "${fish_versions[@]}"; do
 	if [[ "$fish_version" = 'HEAD' ]]; then
-		if [[ $(command -v) ]]; then
+		if [[ $(command -v brew) ]] && ! [[ $(command -v fish) ]]; then
 			log "Installing Fish-$fish_version through Homebrew"
 			brew install fish --HEAD
 		fi
