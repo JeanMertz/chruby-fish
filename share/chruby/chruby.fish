@@ -50,6 +50,7 @@ end
 # Gets its list of Rubies from `bchruby`, then adds it to the local RUBIES env.
 #
 set -gx RUBIES (bchruby 'echo ${RUBIES[@]}' | tr ' ' '\n')
+set -gx CHRUBY_VERSION (bchruby 'echo $CHRUBY_VERSION')
 
 #
 # Reset chruby-set environment variables.
