@@ -38,11 +38,26 @@ function chruby_auto -e fish_prompt
   set -q CHRUBY_SOURCE; or set CHRUBY_SOURCE /usr/local/share/chruby/chruby.sh
   set -l source_dir (dirname "$CHRUBY_SOURCE")
 
+  #
+  # line 1: source official `chruby.sh` file.
+  # line 2: unset BASH_VERSION so that sourcing `auto.sh` doesn't trigger an
+  #         initial `chruby_auto` execution.
+  # line 3: source official `auto.sh` file.
+  # line 4: set `RUBY_AUTO_VERSION` to currently active RUBY_AUTO_VERSION. This
+  #         is required because sourcing `auto.sh` unset this variable.
+  # line 5: manually run `chruby_auto`, only switching rubies if
+  #         `RUBY_AUTO_VERSION` doesn't match the string in `.ruby-version`.
+  # line 6: echo `$RUBY_AUTO_VERSION` to capture in Fish shell.
+  #
   command bash -c "source $source_dir/chruby.sh; \
+                   unset BASH_VERSION; \
                    source $source_dir/auto.sh; \
+                   RUBY_AUTO_VERSION=$RUBY_AUTO_VERSION; \
+                   chruby_auto; \
                    echo \$RUBY_AUTO_VERSION" 2>/dev/null | \
                    read -l ch_ruby_auto_version
 
+  #
   # if non-equal, either `chruby` ran, or no .ruby-version was detected. If
   # equal, a .ruby-version was detected, but it equals active
   # RUBY_AUTO_VERSION, so we return quickly.
