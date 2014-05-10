@@ -21,6 +21,8 @@
 # THE SOFTWARE.
 #
 
+set -e RUBY_AUTO_VERSION
+
 #
 # Wrapper around bash `chruby_auto`.
 #
