@@ -49,11 +49,11 @@ function chruby_auto -e fish_prompt
   #         `RUBY_AUTO_VERSION` doesn't match the string in `.ruby-version`.
   # line 6: echo `$RUBY_AUTO_VERSION` to capture in Fish shell.
   #
-  command bash -c "source $source_dir/chruby.sh; \
-                   unset BASH_VERSION; \
-                   source $source_dir/auto.sh; \
-                   RUBY_AUTO_VERSION=$RUBY_AUTO_VERSION; \
-                   chruby_auto; \
+  command bash -c "source $source_dir/chruby.sh;           \
+                   unset BASH_VERSION;                     \
+                   source $source_dir/auto.sh;             \
+                   RUBY_AUTO_VERSION=$RUBY_AUTO_VERSION;   \
+                   chruby_auto;                            \
                    echo \$RUBY_AUTO_VERSION" 2>/dev/null | \
                    read -l ch_ruby_auto_version
 
