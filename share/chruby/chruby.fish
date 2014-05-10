@@ -88,14 +88,16 @@ end
 # variables and setting them in the current Fish instance.
 #
 function chruby_use
-  test -n "$RUBY_ROOT"; and chruby_reset
-
   set -l args '; echo $RUBY_ROOT ${RUBYOPT:-_} ${GEM_HOME:-_} ${GEM_PATH:-_} \
-                      ${GEM_ROOT:-_} $PATH $RUBY_ENGINE $RUBY_VERSION'
+                      ${GEM_ROOT:-_} $PATH $RUBY_ENGINE $RUBY_VERSION $?'
 
   bchruby 'chruby' $argv $args | read -l ch_ruby_root ch_rubyopt ch_gem_home \
                                          ch_gem_path ch_gem_root ch_path \
-                                         ch_ruby_engine ch_ruby_version
+                                         ch_ruby_engine ch_ruby_version \
+                                         ch_status
+
+  test "$ch_status" = 0; or return 1
+  test -n "$RUBY_ROOT"; and chruby_reset
 
   set -gx RUBY_ENGINE $ch_ruby_engine
   set -gx RUBY_VERSION $ch_ruby_version
@@ -129,9 +131,8 @@ function chruby
     bchruby 'chruby'
   else if test $argv[1] = 'system'
     chruby_reset
-  else if bchruby 'chruby' $argv
-    chruby_use $argv
   else
-    return 1
+    chruby_use $argv
+    return $status
   end
 end
