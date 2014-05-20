@@ -31,14 +31,13 @@ set -e RUBY_AUTO_VERSION
 # `chruby` tool, passing along the `$RUBY_ENGINE-$RUBY_VERSION` argument to the
 # command.
 #
-# You can optionally set the $CHRUBY_SOURCE environment variable if your
+# You can optionally set the $CHRUBY_ROOT environment variable if your
 # `chruby.sh` and `auto.sh` are located in a custom path.
 #
 function chruby_auto -e fish_prompt
   status --is-command-substitution; and return
 
-  set -q CHRUBY_SOURCE; or set CHRUBY_SOURCE /usr/local/share/chruby/chruby.sh
-  set -l source_dir (dirname "$CHRUBY_SOURCE")
+  set -q CHRUBY_ROOT; or set CHRUBY_ROOT /usr/local
 
   #
   # line 1: source official `chruby.sh` file.
@@ -51,12 +50,12 @@ function chruby_auto -e fish_prompt
   #         `RUBY_AUTO_VERSION` doesn't match the string in `.ruby-version`.
   # line 6: echo `$RUBY_AUTO_VERSION` to capture in Fish shell.
   #
-  command bash -c "source $source_dir/chruby.sh;           \
-                   unset BASH_VERSION;                     \
-                   source $source_dir/auto.sh;             \
-                   RUBY_AUTO_VERSION=$RUBY_AUTO_VERSION;   \
-                   chruby_auto;                            \
-                   echo \$RUBY_AUTO_VERSION" 2>/dev/null | \
+  command bash -c "source $CHRUBY_ROOT/share/chruby/chruby.sh; \
+                   unset BASH_VERSION;                         \
+                   source $CHRUBY_ROOT/share/chruby/auto.sh;   \
+                   RUBY_AUTO_VERSION=$RUBY_AUTO_VERSION;       \
+                   chruby_auto;                                \
+                   echo \$RUBY_AUTO_VERSION" 2>/dev/null |     \
                    read -l ch_ruby_auto_version
 
   #

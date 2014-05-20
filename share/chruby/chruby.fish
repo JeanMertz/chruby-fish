@@ -30,19 +30,20 @@ set -gx CHRUBY_FISH_VERSION '0.5.4'
 # allowing us to use the original chruby implementation while overlaying a thin
 # wrapper on top of it to set ENV variables in the Fish shell.
 #
-# You can optionally set the $CHRUBY_SOURCE environment variable if your
+# You can optionally set the $CHRUBY_ROOT environment variable if your
 # `chruby.sh` is located in a custom path.
 #
 function bchruby
-  set -q CHRUBY_SOURCE; or set CHRUBY_SOURCE /usr/local/share/chruby/chruby.sh
+  set -q CHRUBY_ROOT; or set CHRUBY_ROOT /usr/local
 
-  if test ! -f "$CHRUBY_SOURCE";
-    echo "$CHRUBY_SOURCE does not exist. Set \$CHRUBY_SOURCE to point to the \
-correct path."
+  if test ! -f "$CHRUBY_ROOT/share/chruby/chruby.sh";
+    echo "$CHRUBY_ROOT/share/chruby/chruby.sh does not exist." \
+         "Set \$CHRUBY_ROOT to point to the correct path." \
+         "(currently pointing to `$CHRUBY_ROOT`)"
     return 1
   end
 
-  command bash -c "source $CHRUBY_SOURCE; $argv"
+  command bash -c "source $CHRUBY_ROOT; $argv"
 end
 
 # Define RUBIES variable with paths to installed ruby versions.
