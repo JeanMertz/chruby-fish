@@ -2,8 +2,8 @@ require 'formula'
 
 class ChrubyFish < Formula
   homepage 'https://github.com/JeanMertz/chruby-fish#readme'
-  url 'https://github.com/JeanMertz/chruby-fish/archive/v0.5.4.tar.gz'
-  sha1 'bcc27a6ea7d411ce3c47c44967f3fe27750c653f'
+  url 'https://github.com/JeanMertz/chruby-fish/archive/v0.6.0.tar.gz'
+  sha1 'e8262283018137db89ba5031ec088a5df3df19d0'
 
   head 'https://github.com/JeanMertz/chruby-fish.git'
 
