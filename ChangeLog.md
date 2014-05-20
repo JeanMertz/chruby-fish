@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## v0.6.0 (2014-05-20)
+
+### Features
+
+- use `CHRUBY_ROOT` instead of `CHRUBY_SOURCE` to define custom chruby path,
+  see: 11904eb573526c14358acc1ac8c5ec25de44c6aa
+
+### Improvements
+
+- reduce possible number of `chruby-bash` calls when calling `chruby` by 1
+- add `CHRUBY_VERSION` global variable
+- run tests on multiple Fish versions
+
+### Fixes
+
+- Only run `chruby_use` through `chruby_auto` if active Ruby version doesn't
+  match `.ruby-version` (thanks @dalizard)
+- Work around fish-shell/fish-shell#1168 (thanks @schisamo)
+
 ## v0.5.4 (2014-04-26)
 
 ### Improvements
