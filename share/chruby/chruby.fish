@@ -43,7 +43,7 @@ function bchruby
     return 1
   end
 
-  command bash -c "source $CHRUBY_ROOT; $argv"
+  command bash -c "source $CHRUBY_ROOT/share/chruby/chruby.sh; $argv"
 end
 
 # Define RUBIES variable with paths to installed ruby versions.
