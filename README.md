@@ -12,22 +12,18 @@ Thin wrapper around [chruby][] to make it work with the [Fish shell][]
 
 ## install
 
-Place `chruby.fish` file next to `chruby.sh` (by default in
-`/usr/local/share/chruby/`).
+**note** that `chruby-fish` is dependent on `chruby`, please [install it first].
 
-Add the following line to your `config.fish` file:
+```bash
+wget -O chruby-fish-0.6.0.tar.gz https://github.com/JeanMertz/chruby-fish/archive/v0.6.0.tar.gz
+tar -xzvf chruby-fish-0.6.0.tar.gz
+cd chruby-fish-0.6.0/
+sudo make install
+```
 
-    source /usr/local/share/chruby/chruby.fish
+[install it first]: https://github.com/postmodern/chruby#install
 
-To enable auto-switching, also add the `auto.fish` file:
-
-    source /usr/local/share/chruby/auto.fish
-
-See the [chruby documentation][] for more details.
-
-[chruby documentation]: https://github.com/postmodern/chruby#chruby
-
-## Homebrew
+### Homebrew
 
 chruby-fish can also be installed with [homebrew]:
 
@@ -37,7 +33,28 @@ Or the absolute latest chruby-fish can be installed from source:
 
     brew install https://raw.githubusercontent.com/JeanMertz/chruby-fish/master/homebrew/chruby-fish.rb --HEAD
 
+chruby is installed as a dependency of chruby-fish, if you installed chruby
+manually, add the `--without-chruby` flag to the above commands.
+
 [homebrew]: http://brew.sh/
+
+## configuration
+
+Add the following line to your `config.fish` file:
+
+    source /usr/local/share/chruby/chruby.fish
+
+To enable auto-switching, also add the `auto.fish` file:
+
+    source /usr/local/share/chruby/auto.fish
+
+If you use a custom install location for chruby, use the
+[`CHRUBY_ROOT` variable][chruby_root] to point in the right direction.
+
+For more general instructions, see the [chruby documentation][].
+
+[chruby_root]: https://github.com/JeanMertz/chruby-fish/blob/ad62361884941067485df6c417959cdc2a42c182/share/chruby/chruby.fish#L33-L34
+[chruby documentation]: https://github.com/postmodern/chruby#chruby
 
 ## License & Authors
 
