@@ -27,11 +27,11 @@ sudo make install
 
 chruby-fish can also be installed with [homebrew]:
 
-    brew install https://raw.githubusercontent.com/JeanMertz/chruby-fish/master/homebrew/chruby-fish.rb
+    brew install chruby-fish
 
 Or the absolute latest chruby-fish can be installed from source:
 
-    brew install https://raw.githubusercontent.com/JeanMertz/chruby-fish/master/homebrew/chruby-fish.rb --HEAD
+    brew install chruby-fish --HEAD
 
 chruby is installed as a dependency of chruby-fish, if you installed chruby
 manually, add the `--without-chruby` flag to the above commands.
