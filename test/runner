@@ -12,12 +12,6 @@ if test -f ~/.ruby-version
   mv ~/.ruby-version ~/.ruby-version.chruby.bak
 end
 
-if not type -t source >/dev/null
-  function source
-    . $argv
-  end
-end
-
 set -U tank_reporter spec
 
 set fish_app_bin 'fish.app/Contents/Resources/base/bin/fish'
