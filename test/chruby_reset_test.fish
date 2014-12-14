@@ -28,7 +28,7 @@ function suite_chruby_reset
 
   function test_chruby_reset_modified_gem_path
     set -l gem_dir "$HOME/gems"
-    set -gx GEM_PATH $GEM_PATH $gem_dir
+    set -gx GEM_PATH "$GEM_PATH:$gem_dir"
 
     chruby_reset
     assert_equal "$gem_dir" "$GEM_PATH"
