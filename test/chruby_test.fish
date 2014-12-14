@@ -1,4 +1,13 @@
 function suite_chruby
+  function setup
+    set original_rubies $RUBIES
+  end
+
+  function teardown
+    chruby_reset
+    set RUBIES $original_rubies
+  end
+
   function test_chruby_default_RUBIES
     assert_equal "$test_ruby_root" "$RUBIES"
   end
@@ -63,5 +72,5 @@ end
 if not set -q tank_running
   . (dirname (status -f))/helper.fish
   tank_run
-  reset_system_defaults
+  exit $status
 end

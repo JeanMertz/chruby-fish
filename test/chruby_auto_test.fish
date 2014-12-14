@@ -1,9 +1,11 @@
-. (dirname (status -f))/../share/chruby/auto.fish
-
 function suite_chruby_auto
   function setup
     chruby_reset
     set -e RUBY_AUTO_VERSION
+  end
+
+  function teardown
+    cd "$PWD"
   end
 
   function test_chruby_auto_enter_project_dir
@@ -65,7 +67,8 @@ function suite_chruby_auto
 end
 
 if not set -q tank_running
+  . (dirname (status -f))/../share/chruby/auto.fish
   . (dirname (status -f))/helper.fish
   tank_run
-  reset_system_defaults
+  exit $status
 end

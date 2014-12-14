@@ -3,6 +3,10 @@ function suite_chruby_use
     chruby_use $test_ruby_version
   end
 
+  function teardown
+    chruby_reset
+  end
+
   function test_chruby_use
     assert_equal "$test_ruby_root" "$RUBY_ROOT"
     assert_equal "$test_ruby_engine" "$RUBY_ENGINE"
@@ -18,5 +22,5 @@ end
 if not set -q tank_running
   . (dirname (status -f))/helper.fish
   tank_run
-  reset_system_defaults
+  exit $status
 end

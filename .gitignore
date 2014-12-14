@@ -1,4 +1,5 @@
 .DS_Store
 test/opt
 test/fish_binaries
+test/**/fishd.*
 pkg/*.tar.gz

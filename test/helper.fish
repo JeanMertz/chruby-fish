@@ -23,17 +23,9 @@ set -g test_gem_root "$test_ruby_root/lib/ruby/gems/$test_ruby_api"
 
 set -g test_project_dir "$PWD/test/project"
 
-function teardown
-  chruby_reset
-end
-
 # reset to original state after finishing tests
-function reset_system_defaults
+function reset_system_defaults -e tank_finished
   set -gx PATH $original_path
   set -e original_path
   set -q original_prefix; and set -gx PREFIX $original_prefix
-end
-
-function error_build -e test_failure
-  set -Ux TEST_ERROR 1
 end

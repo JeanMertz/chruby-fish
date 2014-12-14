@@ -2,20 +2,27 @@
 
 set -q PREFIX; and set -g original_prefix $PREFIX
 set -gx PREFIX "$PWD/test"
+set test_status 0
 
 function log
   echo -e "\x1b[1m\x1b[32m>>>\x1b[0m \x1b[1m\x1b[37m{$argv}\x1b[0m"
 end
 
-set -e TEST_ERROR
-set -Ux TEST_ERROR 0
+if test -f ~/.ruby-version
+  mv ~/.ruby-version ~/.ruby-version.chruby.bak
+end
+
+if not type -t source >/dev/null
+  function source
+    . $argv
+  end
+end
+
 set -U tank_reporter spec
 
 set fish_app_bin 'fish.app/Contents/Resources/base/bin/fish'
 set fish_binaries "$PREFIX/fish_binaries/fish-2.1.0/$fish_app_bin" \
-                  (which fish)
-                  # => https://github.com/terlar/fish-tank/pull/2#issuecomment-41700221
-                  # "$PREFIX/fish_binaries/fish-2.0.0/$fish_app_bin"
+                  "$PREFIX/fish_binaries/fish-2.0.0/$fish_app_bin" (which fish)
 
 for fish_binary in $fish_binaries
   log "Running tests under $fish_binary in interactive-mode ..."
@@ -23,6 +30,9 @@ for fish_binary in $fish_binaries
   for test in (dirname (status -f))/*_test.fish
     log "Running $test ..."
     env HOME=$PREFIX/home $fish_binary -i $test
+
+    set results $status
+    test $results -ne 0; and set test_status $results
   end
 
   log "Running tests under $fish_binary in non-interactive-mode ..."
@@ -30,9 +40,14 @@ for fish_binary in $fish_binaries
   for test in (dirname (status -f))/*_test.fish
     log "Running $test ..."
     env HOME=$PREFIX/home $fish_binary $test
+
+    set results $status
+    test $results -ne 0; and set test_status $results
   end
 end
 
-set exit_code $TEST_ERROR
-set -e TEST_ERROR
-exit $exit_code
+if test -f ~/.ruby-version.chruby.bak
+  mv ~/.ruby-version.chruby.bak ~/.ruby-version
+end
+
+exit $test_status

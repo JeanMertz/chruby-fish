@@ -43,5 +43,5 @@ end
 if not set -q tank_running
   . (dirname (status -f))/helper.fish
   tank_run
-  reset_system_defaults
+  exit $status
 end
