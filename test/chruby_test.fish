@@ -24,7 +24,7 @@ function suite_chruby
   function test_chruby_help
     set chruby_fish_help (chruby --help)
     set chruby_fish_h (chruby -h)
-    set expected_output 'usage: chruby [RUBY|VERSION|system] [RUBY_OPTS]'
+    set expected_output 'usage: chruby [RUBY|VERSION|system] [RUBYOPT...]'
 
     assert_equal "$expected_output" "$chruby_fish_help"
     assert_equal "$expected_output" "$chruby_fish_h"
