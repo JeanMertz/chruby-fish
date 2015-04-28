@@ -56,6 +56,20 @@ For more general instructions, see the [chruby documentation][].
 [chruby_root]: https://github.com/JeanMertz/chruby-fish/blob/ad62361884941067485df6c417959cdc2a42c182/share/chruby/chruby.fish#L33-L34
 [chruby documentation]: https://github.com/postmodern/chruby#chruby
 
+## Known Issues
+
+Invalid PATH warning
+
+If you see a warning similiar to
+```
+set: Warning: path component /path/to/ruby-x.y.z/lib/ruby/gems/x.y.z/bin may not be valid in PATH.
+set: No such file or directory
+```
+you can silence it by creating that directory:
+```
+mkdir /path/to/ruby-x.y.z/lib/ruby/gems/x.y.z/bin
+```
+
 ## License & Authors
 
 - Author: Jean Mertz <jean@mertz.fm>
