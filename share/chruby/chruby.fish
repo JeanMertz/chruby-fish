@@ -74,7 +74,7 @@ function chruby_reset
     end
   end
 
-  set -gx PATH (echo $ch_path | tr : '\n')
+  set -gx PATH (echo $ch_path | tr : '\n') 2>/dev/null
 
   set -l unset_vars RUBY_ROOT RUBY_ENGINE RUBY_VERSION RUBYOPT
   for i in (seq (count $unset_vars))
