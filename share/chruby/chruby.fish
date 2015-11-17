@@ -120,20 +120,15 @@ end
 # it, and capturing the outputted environment variables to be set in Fish.
 #
 function chruby
-  set -l version_commands '-V' '--version'
-  set -l external_commands '-h' '--help' $version_commands
-
-  if echo $external_commands | grep -qe "$argv[1]"
-    bchruby 'chruby' $argv
-
-    echo $version_commands | grep -qe "$argv[1]"; or return
-    echo 'chruby-fish:' $CHRUBY_FISH_VERSION
-  else if test -z "$argv"
-    bchruby 'chruby'
-  else if test $argv[1] = 'system'
-    chruby_reset
-  else
-    chruby_use $argv
-    return $status
+  switch "$argv[1]"
+    case '-h' '--help', ''
+      bchruby "chruby $argv"
+    case '-V' '--version'
+      bchruby "chruby $argv"
+      echo "chruby-fish: $CHRUBY_FISH_VERSION"
+    case 'system'
+      chruby_reset
+    case '*'
+      chruby_use "$argv"
   end
 end
