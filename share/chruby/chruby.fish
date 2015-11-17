@@ -121,7 +121,7 @@ end
 #
 function chruby
   switch "$argv[1]"
-    case '-h' '--help', ''
+    case '-h' '--help'
       bchruby "chruby $argv"
     case '-V' '--version'
       bchruby "chruby $argv"
@@ -129,6 +129,10 @@ function chruby
     case 'system'
       chruby_reset
     case '*'
-      chruby_use "$argv"
+      if test "$argv[1]" = ''
+        bchruby "chruby $argv"
+      else
+        chruby_use "$argv"
+      end
   end
 end
