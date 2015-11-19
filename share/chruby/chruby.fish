@@ -43,7 +43,7 @@ function bchruby
     return 1
   end
 
-  command bash -c "source $CHRUBY_ROOT/share/chruby/chruby.sh; $argv"
+  command bash -lc "source $CHRUBY_ROOT/share/chruby/chruby.sh; $argv"
 end
 
 # Define RUBIES variable with paths to installed ruby versions.
@@ -65,7 +65,6 @@ function chruby_reset
 
   if test (id -u) != '0'
     set -e GEM_HOME
-    set -e GEM_ROOT
 
     if test "$ch_gem_path" = '_'
       set -e GEM_PATH
@@ -76,7 +75,7 @@ function chruby_reset
 
   set -gx PATH (echo $ch_path | tr : '\n')
 
-  set -l unset_vars RUBY_ROOT RUBY_ENGINE RUBY_VERSION RUBYOPT
+  set -l unset_vars RUBY_ROOT RUBY_ENGINE RUBY_VERSION RUBYOPT GEM_ROOT
   for i in (seq (count $unset_vars))
     set -e $unset_vars[$i]
   end
@@ -102,6 +101,9 @@ function chruby_use
 
   set -gx RUBY_ENGINE $ch_ruby_engine
   set -gx RUBY_VERSION $ch_ruby_version
+
+  echo here $ch_ruby_root
+
   set -gx RUBY_ROOT $ch_ruby_root
   test $ch_gem_root = '_'; or set -gx GEM_ROOT $ch_gem_root
   test $ch_rubyopt = '_'; or set -gx RUBYOPT $ch_rubyopt

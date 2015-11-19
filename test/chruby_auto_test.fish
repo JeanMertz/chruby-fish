@@ -38,6 +38,8 @@ function suite_chruby_auto
     cd "$test_project_dir/modified_version"; and chruby_auto
     echo '2.1' > .ruby-version; and chruby_auto
 
+    echo "root $RUBY_ROOT"
+
     assert_equal "$test_ruby_root" "$RUBY_ROOT"
   end
 

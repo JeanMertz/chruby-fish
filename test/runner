@@ -1,4 +1,4 @@
-#!/usr/local/bin/fish
+#!/usr/bin/env fish
 
 set -q PREFIX; and set -g original_prefix $PREFIX
 set -gx PREFIX "$PWD/test"
@@ -14,9 +14,13 @@ end
 
 set -U tank_reporter spec
 
-set fish_app_bin 'fish.app/Contents/Resources/base/bin/fish'
-set fish_binaries "$PREFIX/fish_binaries/fish-2.1.0/$fish_app_bin" \
-                  "$PREFIX/fish_binaries/fish-2.0.0/$fish_app_bin" (which fish)
+if test (uname) = "Darwin"
+  set fish_app_bin 'fish.app/Contents/Resources/base/bin/fish'
+  set fish_binaries "$PREFIX/fish_binaries/fish-2.1.0/$fish_app_bin" \
+                    "$PREFIX/fish_binaries/fish-2.0.0/$fish_app_bin" (which fish)
+else
+  set fish_binaries (which fish)
+end
 
 for fish_binary in $fish_binaries
   log "Running tests under $fish_binary in interactive-mode ..."
