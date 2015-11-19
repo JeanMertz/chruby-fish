@@ -102,8 +102,6 @@ function chruby_use
   set -gx RUBY_ENGINE $ch_ruby_engine
   set -gx RUBY_VERSION $ch_ruby_version
 
-  echo here $ch_ruby_root
-
   set -gx RUBY_ROOT $ch_ruby_root
   test $ch_gem_root = '_'; or set -gx GEM_ROOT $ch_gem_root
   test $ch_rubyopt = '_'; or set -gx RUBYOPT $ch_rubyopt
