@@ -1,5 +1,5 @@
 NAME=chruby-fish
-VERSION=0.7.0
+VERSION=0.7.1
 AUTHOR=JeanMertz
 URL=https://github.com/$(AUTHOR)/$(NAME)
 

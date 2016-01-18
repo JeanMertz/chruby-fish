@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.7.1 (2016-01-18)
+
+**Fixes**
+
+- show active Ruby version on running `chruby`
+
 ## v0.7.0 (2016-01-18)
 
 **Features**
