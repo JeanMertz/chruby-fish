@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v0.7.0 (2016-01-18)
+
+**Features**
+
+- update to work with latest chruby
+
+**Improvements**
+
+- use [Fishtape][] for tests
+- update test suite to equal bash' chruby suite
+- run bash' chruby in sanitised environment to prevent env variable leakage
+
+**Fixes**
+
+- run bash' chruby in an interactive shell to support sourcing `~/.bash_profile`
+
 ## v0.6.0 (2014-05-20)
 
 **Features**

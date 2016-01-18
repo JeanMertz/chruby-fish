@@ -21,7 +21,7 @@
 # THE SOFTWARE.
 #
 
-set -gx CHRUBY_FISH_VERSION '0.6.0'
+set -gx CHRUBY_FISH_VERSION '0.7.0'
 
 #
 # Execute chruby commands through bash.
