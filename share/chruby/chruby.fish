@@ -134,7 +134,17 @@ function chruby
       if test "$argv[1]" = ''
         bchruby "chruby $argv"
       else
-        chruby_use "$argv"
+        set -l dir ruby match
+        for dir in $RUBIES
+          set dir (string trim -r -c/ "$dir")
+          set ruby (string split -m1 -r / $dir | tail -n1)
+
+          test "$argv[1]" = "$ruby"; and set match "$dir"; and break
+          string match -qi "*$argv[1]*" "$ruby"; and set match "$dir"
+        end
+
+        set -e argv[1]
+        chruby_use "$match" "$argv"
       end
   end
 end
