@@ -42,3 +42,7 @@ end
 test "$TESTNAME: chruby invalid ruby"
   "1" = (set RUBIES "/does/not/exist/jruby"; chruby "jruby" 2>/dev/null; echo "$status")
 end
+
+test "$TESTNAME: chruby show active"
+  " * $test_ruby_engine-$test_ruby_version" = (chruby | head -n1)
+end
