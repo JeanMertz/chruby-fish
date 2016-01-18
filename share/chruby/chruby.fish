@@ -44,7 +44,10 @@ function bchruby
   end
 
   set bash_path (echo $PATH | tr ' ' ':')
-  env - bash -lc "export HOME=$HOME PREFIX=$PREFIX PATH=$bash_path; \
+  env - bash -lc "export HOME=$HOME            \
+                         PREFIX=$PREFIX        \
+                         PATH=$bash_path       \
+                         RUBY_ROOT=$RUBY_ROOT; \
                   source $CHRUBY_ROOT/share/chruby/chruby.sh; $argv"
 end
 
