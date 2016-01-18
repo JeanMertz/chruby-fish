@@ -43,7 +43,9 @@ function bchruby
     return 1
   end
 
-  command bash -lc "source $CHRUBY_ROOT/share/chruby/chruby.sh; $argv"
+  set bash_path (echo $PATH | tr ' ' ':')
+  env - bash -lc "export HOME=$HOME PREFIX=$PREFIX PATH=$bash_path; \
+                  source $CHRUBY_ROOT/share/chruby/chruby.sh; $argv"
 end
 
 # Define RUBIES variable with paths to installed ruby versions.
