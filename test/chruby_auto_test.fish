@@ -1,76 +1,57 @@
-function suite_chruby_auto
-  function setup
-    chruby_reset
-    set -e RUBY_AUTO_VERSION
-  end
+source ./test/helper.fish
+source ./share/chruby/auto.fish
 
-  function teardown
-    cd "$PWD"
-  end
+function setup
+  source ./test/helper.fish
+  source ./share/chruby/auto.fish
 
-  function test_chruby_auto_enter_project_dir
-    cd "$test_project_dir"; and chruby_auto
-
-    assert_equal "$test_ruby_root" "$RUBY_ROOT"
-  end
-
-  function test_chruby_auto_enter_subdir_directly
-    cd "$test_project_dir/sub_dir"; and chruby_auto
-
-    assert_equal "$test_ruby_root" "$RUBY_ROOT"
-  end
-
-  function test_chruby_auto_enter_subdir
-    cd "$test_project_dir"; and chruby_auto
-    cd sub_dir; and chruby_auto
-
-    assert_equal "$test_ruby_root" "$RUBY_ROOT"
-  end
-
-  function test_chruby_auto_enter_subdir_with_ruby_version
-    cd "$test_project_dir"; and chruby_auto
-    cd sub_versioned/; and chruby_auto
-
-    assert_empty "$RUBY_ROOT"
-  end
-
-  function test_chruby_auto_modified_ruby_version
-    cd "$test_project_dir/modified_version"; and chruby_auto
-    echo '2.1' > .ruby-version; and chruby_auto
-
-    echo "root $RUBY_ROOT"
-
-    assert_equal "$test_ruby_root" "$RUBY_ROOT"
-  end
-
-  function test_chruby_auto_overriding_ruby_version
-    cd "$test_project_dir"; and chruby_auto
-    chruby system; and chruby_auto
-
-    assert_empty "$RUBY_ROOT"
-  end
-
-  function test_chruby_auto_leave_project_dir
-    cd "$test_project_dir"; and chruby_auto
-    cd "$test_project_dir/.."; and chruby_auto
-
-    assert_empty "$RUBY_ROOT"
-  end
-
-  function test_chruby_auto_invalid_ruby_version
-    set -l expected_auto_version (cat $test_project_dir/bad/.ruby-version)
-
-    cd "$test_project_dir"; and chruby_auto
-    cd bad/; and chruby_auto 2>/dev/null
-
-    assert_equal "$test_ruby_root" "$RUBY_ROOT"
-    assert_equal "$expected_auto_version" "$RUBY_AUTO_VERSION"
-  end
+  chruby_reset
+  set -q RUBY_AUTO_VERSION; and set -e RUBY_AUTO_VERSION; or true
 end
 
-if not set -q tank_running
-  . (dirname (status -f))/../share/chruby/auto.fish
-  . (dirname (status -f))/helper.fish
-  tank_run
-  exit $status
+function -S teardown
+  echo "2.1" > $test_project_dir/modified_version/.ruby-version
+  cd "$PROJECT"
+end
+
+test "$TESTNAME: chruby_auto loaded in Fish"
+  "0" = (functions chruby_auto | grep -q 'on-event fish_prompt'; echo "$status")
+end
+
+test "$TESTNAME: chruby_auto enter project dir"
+  "$test_ruby_root" = (cd "$test_project_dir"; and chruby_auto; echo "$RUBY_ROOT")
+end
+
+test "$TESTNAME: chruby_auto enter subdir directly"
+  "$test_ruby_root" = (cd "$test_project_dir/sub_dir"; and chruby_auto; echo "$RUBY_ROOT")
+end
+
+test "$TESTNAME: chruby_auto enter subdir"
+  "$test_ruby_root" = (cd "$test_project_dir"; and chruby_auto; \
+                       cd sub_dir; and chruby_auto; echo "$RUBY_ROOT")
+end
+
+test "$TESTNAME: chruby_auto modified .ruby-version"
+  "$test_ruby_root" = (cd "$test_project_dir/modified_version"; and chruby_auto; \
+                       echo "2.2" > .ruby-version; and chruby_auto; echo "$RUBY_ROOT")
+end
+
+test "$TESTNAME: chruby_auto overriding .ruby-version"
+  -z (cd "$test_project_dir"; and chruby_auto; \
+      chruby system; and chruby_auto; echo "$RUBY_ROOT")
+end
+
+test "$TESTNAME: chruby_auto leave project dir"
+  -z (cd "$test_project_dir"; and chruby_auto; \
+      cd "$test_project_dir/.."; and chruby_auto; echo "$RUBY_ROOT")
+end
+
+test "$TESTNAME: chruby_auto invalid .ruby-version keeps current Ruby version"
+  "$test_ruby_root" = (cd "$test_project_dir"; and chruby_auto; \
+                       cd "bad/"; and chruby_auto 2>/dev/null; echo "$RUBY_ROOT")
+end
+
+test "$TESTNAME: chruby_auto invalid .ruby-version does not set RUBY_AUTO_VERSION"
+  (cat "$test_project_dir/bad/.ruby-version") = (cd "$test_project_dir";
+   and chruby_auto; cd "bad/"; and chruby_auto 2>/dev/null; echo "$RUBY_AUTO_VERSION")
 end

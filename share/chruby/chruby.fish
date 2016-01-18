@@ -43,7 +43,9 @@ function bchruby
     return 1
   end
 
-  command bash -lc "source $CHRUBY_ROOT/share/chruby/chruby.sh; $argv"
+  set bash_path (echo $PATH | tr ' ' ':')
+  env - bash -lc "export HOME=$HOME PREFIX=$PREFIX PATH=$bash_path; \
+                  source $CHRUBY_ROOT/share/chruby/chruby.sh; $argv"
 end
 
 # Define RUBIES variable with paths to installed ruby versions.
@@ -77,7 +79,7 @@ function chruby_reset
 
   set -l unset_vars RUBY_ROOT RUBY_ENGINE RUBY_VERSION RUBYOPT GEM_ROOT
   for i in (seq (count $unset_vars))
-    set -e $unset_vars[$i]
+    set -q $unset_vars[$i]; and set -e $unset_vars[$i]; or true
   end
 end
 
@@ -91,7 +93,7 @@ function chruby_use
   set -l args '; echo $RUBY_ROOT ${RUBYOPT:-_} ${GEM_HOME:-_} ${GEM_PATH:-_} \
                       ${GEM_ROOT:-_} $PATH $RUBY_ENGINE $RUBY_VERSION $?'
 
-  bchruby 'chruby' $argv $args | read -l ch_ruby_root ch_rubyopt ch_gem_home \
+  bchruby 'chruby_use' $argv $args | read -l ch_ruby_root ch_rubyopt ch_gem_home \
                                          ch_gem_path ch_gem_root ch_path \
                                          ch_ruby_engine ch_ruby_version \
                                          ch_status
@@ -132,7 +134,17 @@ function chruby
       if test "$argv[1]" = ''
         bchruby "chruby $argv"
       else
-        chruby_use "$argv"
+        set -l dir ruby match
+        for dir in $RUBIES
+          set dir (string trim -r -c/ "$dir")
+          set ruby (string split -m1 -r / $dir | tail -n1)
+
+          test "$argv[1]" = "$ruby"; and set match "$dir"; and break
+          string match -qi "*$argv[1]*" "$ruby"; and set match "$dir"
+        end
+
+        set -e argv[1]
+        chruby_use "$match" "$argv"
       end
   end
 end

@@ -27,9 +27,9 @@ function fail() {
 
 function download() {
 	if command -v wget >/dev/null; then
-		wget -cq -O "$2" "$1"
+		wget -c -O "$2" "$1"
 	elif command -v curl >/dev/null; then
-		curl -Ls -C - -o "$2" "$1"
+		curl -L -C - -o "$2" "$1"
 	else
 		error "Could not find wget or curl"
 		return 1
@@ -37,128 +37,116 @@ function download() {
 }
 
 function detect_system() {
-  # adapted from RVM: https://github.com/wayneeseguin/rvm/blob/master/scripts/functions/utility_system#L3
-  system_type="unknown"
-  system_name="unknown"
-  system_version="unknown"
-  system_arch="$(uname -m)"
+	# adapted from RVM: https://github.com/wayneeseguin/rvm/blob/master/scripts/functions/utility_system#L3
+	system_type="unknown"
+	system_name="unknown"
+	system_version="unknown"
+	system_arch="$(uname -m)"
 
-  case "$(uname)" in
-    (Linux|GNU*)
-      system_type="linux"
+	case "$(uname)" in
+		(Linux|GNU*)
+			system_type="linux"
 
-      if [[ -f /etc/lsb-release ]] &&
-	 [[ "$(cat /etc/lsb-release)" == *"DISTRIB_ID=Ubuntu"* ]]
-      then
-        system_name="ubuntu"
-        system_version="$(awk -F'=' '$1=="DISTRIB_RELEASE"{print $2}' /etc/lsb-release)"
-        system_arch="$(dpkg --print-architecture)"
-      elif [[ -f /etc/lsb-release ]] &&
-           [[ "$(cat /etc/lsb-release)" == *"DISTRIB_ID=LinuxMint"* ]]
-      then
-        system_name="mint"
-        system_version="$(awk -F'=' '$1=="DISTRIB_RELEASE"{print $2}' /etc/lsb-release)"
-        system_arch="$( dpkg --print-architecture )"
-      elif [[ -f /etc/lsb-release ]] &&
-           [[ "$(cat /etc/lsb-release)" == *"DISTRIB_ID=ManjaroLinux"* ]]
-      then
-        system_name="manjaro"
-        system_version="$(awk -F'=' '$1=="DISTRIB_RELEASE"{print $2}' /etc/lsb-release)"
-      elif [[ -f /etc/os-release ]] &&
-           [[ "$(cat /etc/os-release)" == *"ID=opensuse"* ]]
-      then
-        system_name="opensuse"
-        system_version="$(awk -F'=' '$1=="VERSION_ID"{gsub(/"/,"");print $2}' /etc/os-release)" #'
-      elif [[ -f /etc/SuSE-release ]]; then
-        system_name="suse"
-        system_version="$(
-          awk -F'=' '{gsub(/ /,"")} $1~/VERSION/ {version=$2} $1~/PATCHLEVEL/ {patch=$2} END {print version"."patch}' cat /etc/SuSE-release
-        )"
-      elif [[ -f /etc/debian_version ]]; then
-        system_name="debian"
-        system_version="$(cat /etc/debian_version | awk -F. '{print $1"."$2}')"
-        system_arch="$( dpkg --print-architecture )"
-      elif [[ -f /etc/os-release ]] &&
-           [[ "$(cat /etc/os-release)" == *"ID=debian"* ]]
-      then
-        system_name="debian"
-        system_version="$(awk -F'=' '$1=="VERSION_ID"{gsub(/"/,"");print $2}' /etc/os-release | awk -F. '{print $1"."$2}')" #'
-        system_arch="$( dpkg --print-architecture )"
-      elif [[ -f /etc/fedora-release ]]; then
-        system_name="fedora"
-        system_version="$(grep -Eo '[[:digit:]]+' /etc/fedora-release)"
-      elif [[ -f /etc/centos-release ]]; then
-        system_name="centos"
-        system_version="$(grep -Eo '[[:digit:]\.]+' /etc/centos-release | awk -F. '{print $1"."$2}')"
-      elif [[ -f /etc/redhat-release ]]; then
-        if [[ "$(cat /etc/redhat-release)" == *"CentOS"* ]]; then
-		system_name="centos"
-        else
-		system_name="redhat"
-        fi
+			if [[ -f /etc/lsb-release ]] && [[ "$(< /etc/lsb-release)" == *"DISTRIB_ID=Ubuntu"* ]]; then
+				system_name="ubuntu"
+				system_version="$(awk -F'=' '$1=="DISTRIB_RELEASE"{print $2}' /etc/lsb-release)"
+				system_arch="$(dpkg --print-architecture)"
+			elif [[ -f /etc/lsb-release ]] && [[ "$(< /etc/lsb-release)" == *"DISTRIB_ID=LinuxMint"* ]]; then
+				system_name="mint"
+				system_version="$(awk -F'=' '$1=="DISTRIB_RELEASE"{print $2}' /etc/lsb-release)"
+				system_arch="$( dpkg --print-architecture )"
+			elif [[ -f /etc/lsb-release ]] && [[ "$(< /etc/lsb-release)" == *"DISTRIB_ID=ManjaroLinux"* ]]; then
+				system_name="manjaro"
+				system_version="$(awk -F'=' '$1=="DISTRIB_RELEASE"{print $2}' /etc/lsb-release)"
+			elif [[ -f /etc/os-release ]] && [[ "$(< /etc/os-release)" == *"ID=opensuse"* ]]; then
+				system_name="opensuse"
+				system_version="$(awk -F'=' '$1=="VERSION_ID"{gsub(/"/,"");print $2}' /etc/os-release)" #'
+			elif [[ -f /etc/SuSE-release ]]; then
+				system_name="suse"
+				system_version="$(
+				awk -F'=' '{gsub(/ /,"")} $1~/VERSION/ {version=$2} $1~/PATCHLEVEL/ {patch=$2} END {print version"."patch}' < /etc/SuSE-release
+				)"
+			elif [[ -f /etc/debian_version ]]; then
+				system_name="debian"
+				system_version="$(awk -F. '{print $1"."$2}' /etc/debian_version)"
+				system_arch="$( dpkg --print-architecture )"
+			elif [[ -f /etc/os-release ]] && [[ "$(< /etc/os-release)" == *"ID=debian"* ]]; then
+				system_name="debian"
+				system_version="$(awk -F'=' '$1=="VERSION_ID"{gsub(/"/,"");print $2}' /etc/os-release | awk -F. '{print $1"."$2}')" #'
+				system_arch="$( dpkg --print-architecture )"
+			elif [[ -f /etc/fedora-release ]]; then
+				system_name="fedora"
+				system_version="$(grep -Eo '[[:digit:]]+' /etc/fedora-release)"
+			elif [[ -f /etc/centos-release ]]; then
+				system_name="centos"
+				system_version="$(grep -Eo '[[:digit:]\.]+' /etc/centos-release | awk -F. '{print $1"."$2}')"
+			elif [[ -f /etc/redhat-release ]]; then
+				if [[ "$(< /etc/redhat-release)" == *"CentOS"* ]]; then
+					system_name="centos"
+				else
+					system_name="redhat"
+				fi
 
-        system_version="$(grep -Eo '[[:digit:]\.]+' /etc/redhat-release | awk -F. '{print $1"."$2}')"
-      elif [[ -f /etc/system-release ]] &&
-           [[ "$(cat /etc/system-release)" == *"Amazon Linux AMI"* ]]
-      then
-        system_name="amazon"
-        system_version="$(grep -Eo '[[:digit:]\.]+' /etc/system-release | awk -F. '{print $1"."$2}')"
-      elif [[ -f /etc/gentoo-release ]]; then
-        system_name="gentoo"
-        system_version="base-$(cat /etc/gentoo-release | awk 'NR==1 {print $NF}' | awk -F. '{print $1"."$2}')"
-      elif [[ -f /etc/arch-release ]]; then
-        system_name="arch"
-        system_version="libc-$(ldd --version | awk 'NR==1 {print $NF}' | awk -F. '{print $1"."$2}')"
-      else
-        system_version="libc-$(ldd --version | awk 'NR==1 {print $NF}' | awk -F. '{print $1"."$2}')"
-      fi
-      ;;
+				system_version="$(grep -Eo '[[:digit:]\.]+' /etc/redhat-release | awk -F. '{print $1"."$2}')"
+			elif [[ -f /etc/system-release ]] && [[ "$(< /etc/system-release)" == *"Amazon Linux AMI"* ]]; then
+				system_name="amazon"
+				system_version="$(grep -Eo '[[:digit:]\.]+' /etc/system-release | awk -F. '{print $1"."$2}')"
+			elif [[ -f /etc/gentoo-release ]]; then
+				system_name="gentoo"
+				system_version="base-$(< /etc/gentoo-release | awk 'NR==1 {print $NF}' | awk -F. '{print $1"."$2}')"
+			elif [[ -f /etc/arch-release ]]; then
+				system_name="arch"
+				system_version="libc-$(ldd --version | awk 'NR==1 {print $NF}' | awk -F. '{print $1"."$2}')"
+			else
+				system_version="libc-$(ldd --version | awk 'NR==1 {print $NF}' | awk -F. '{print $1"."$2}')"
+			fi
+			;;
 
-    (SunOS)
-      system_type="sunos"
-      system_name="solaris"
-      system_version="$(uname -v)"
+		(SunOS)
+			system_type="sunos"
+			system_name="solaris"
+			system_version="$(uname -v)"
 
-      if [[ "${system_version}" == joyent* ]]; then
-        system_name="smartos"
-        system_version="${system_version#* }"
-      elif [[ "${system_version}" == oi* ]]; then
-        system_name="openindiana"
-        system_version="${system_version#* }"
-      fi
-      ;;
+			if [[ "${system_version}" == joyent* ]]; then
+				system_name="smartos"
+				system_version="${system_version#* }"
+			elif [[ "${system_version}" == oi* ]]; then
+				system_name="openindiana"
+				system_version="${system_version#* }"
+			fi
+			;;
 
-    (OpenBSD)
-      system_type="bsd"
-      system_name="openbsd"
-      system_version="$(uname -r)"
-      ;;
+		(OpenBSD)
+			system_type="bsd"
+			system_name="openbsd"
+			system_version="$(uname -r)"
+			;;
 
-    (Darwin)
-      system_type="darwin"
-      system_name="osx"
-      system_version="$(sw_vers -productVersion)"
-      system_version="${system_version%.*}" # only major.minor - teeny is ignored
-      ;;
+		(Darwin)
+			system_type="darwin"
+			system_name="osx"
+			system_version="$(sw_vers -productVersion)"
+			system_version="${system_version%.*}" # only major.minor - teeny is ignored
+			;;
 
-    (FreeBSD)
-      system_type="bsd"
-      system_name="freebsd"
-      system_version="$(uname -r)"
-      system_version="${system_version%%-*}"
-      ;;
+		(FreeBSD)
+			system_type="bsd"
+			system_name="freebsd"
+			system_version="$(uname -r)"
+			system_version="${system_version%%-*}"
+			;;
 
-    (*)
-      return 1
-      ;;
-  esac
+		(*)
+			return 1
+			;;
+	esac
 
-  system_type="${system_type//[ \/]/_}"
-  system_name="${system_name//[ \/]/_}"
-  system_version="${system_version//[ \/]/_}"
-  system_arch="${system_arch//[ \/]/_}"
-  system_arch="${system_arch/amd64/x86_64}"
-  system_arch="${system_arch/i[123456789]86/i386}"
+	system_type="${system_type//[ \/]/_}"
+	system_name="${system_name//[ \/]/_}"
+	system_version="${system_version//[ \/]/_}"
+	system_arch="${system_arch//[ \/]/_}"
+	system_arch="${system_arch/amd64/x86_64}"
+	system_arch="${system_arch/i[123456789]86/i386}"
 }
 
 detect_system || fail "Cannot auto-detect system type"
@@ -166,27 +154,9 @@ detect_system || fail "Cannot auto-detect system type"
 [[ "$system_version" == "unknown" ]] && fail "Could not detect system version"
 [[ "$system_arch" == "unknown"    ]] && fail "Could not detect system arch"
 
-test_ruby_archive="$test_ruby_engine-$test_ruby_version.tar.bz2"
+test_ruby_archive="${test_ruby_engine}-${test_ruby_version}.tar.bz2"
 test_ruby_url="http://rvm.io/binaries/$system_name/$system_version/$system_arch/$test_ruby_archive"
 test_ruby_root="$test_ruby_engine-$test_ruby_version"
-
-mkdir -p "$PREFIX/fish_binaries"
-cd $PREFIX/fish_binaries
-
-declare -a fish_versions=('2.0.0' '2.1.0' 'HEAD')
-for fish_version in "${fish_versions[@]}"; do
-	if [[ "$fish_version" = 'HEAD' ]]; then
-		if [[ $(command -v brew) ]] && ! [[ $(command -v fish) ]]; then
-			log "Installing Fish-$fish_version through Homebrew"
-			brew install fish --HEAD
-		fi
-	else
-		log "Downloading http://fishshell.com/files/$fish_version/fish.app.zip ..."
-		download "http://fishshell.com/files/$fish_version/fish.app.zip" 'fish.zip'
-		unzip -o -d "fish-$fish_version" 'fish.zip' >/dev/null
-		rm 'fish.zip'
-	fi
-done
 
 mkdir -p "$PREFIX/opt/rubies"
 cd "$PREFIX/opt/rubies"

@@ -35,8 +35,6 @@ set -e RUBY_AUTO_VERSION
 # `chruby.sh` and `auto.sh` are located in a custom path.
 #
 function chruby_auto -e fish_prompt
-  status --is-command-substitution; and return
-
   set -q CHRUBY_ROOT; or set CHRUBY_ROOT /usr/local
 
   #

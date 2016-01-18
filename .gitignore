@@ -1,5 +1,6 @@
 .DS_Store
-test/opt
-test/fish_binaries
-test/**/fishd.*
+fishtape
 pkg/*.tar.gz
+test/**/fishd.*
+test/fish_binaries
+test/opt

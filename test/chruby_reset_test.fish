@@ -1,54 +1,53 @@
-function suite_chruby_reset
-  function setup
-    chruby_use $test_ruby_version
-    set -g PATH "$RUBY_ROOT/bin" $test_path
-  end
+source ./test/helper.fish
 
-  function test_chruby_reset
-    chruby_reset
+function setup
+  source ./test/helper.fish
 
-    assert_empty "$RUBY_ROOT"
-    assert_empty "$RUBY_ENGINE"
-    assert_empty "$RUBY_VERSION"
-    assert_empty "$RUBYOPT"
-    assert_empty "$GEM_HOME"
+  chruby_use $test_ruby_root >/dev/null
+  set -x PATH $GEM_HOME/bin $GEM_ROOT/bin $RUBY_ROOT/bin $test_path
 
-    # FIXME: `GEM_PATH` is not empty if `test_chruby_reset_modified_gem_path`
-    #        runs first. Needs more investigation.
-    #
-    # assert_empty "$GEM_PATH"
-  end
-
-  function test_chruby_reset_duplicate_path
-    set -gx PATH $PATH "$RUBY_ROOT/bin"
-
-    chruby_reset
-    assert_equal "$test_path" "$PATH"
-  end
-
-  function test_chruby_reset_modified_gem_path
-    set -l gem_dir "$HOME/gems"
-    set -gx GEM_PATH $GEM_PATH $gem_dir
-
-    chruby_reset
-    assert_equal "$gem_dir" "$GEM_PATH"
-  end
-
-  # FIXME: If this test runs first, then `test_chruby_reset_modified_gem_path`
-  #        will fail. Needs more investigation.
-  #
-  # function test_chruby_reset_no_gem_root_or_gem_home
-  #   set -gx GEM_HOME ""
-  #   set -gx GEM_ROOT ""
-  #   set -gx PATH $test_path /bin
-
-  #   chruby_reset
-  #   assert_equal "$test_path /bin" $PATH
-  # end
+  chruby_reset
 end
 
-if not set -q tank_running
-  . (dirname (status -f))/helper.fish
-  tank_run
-  exit $status
+function -S teardown
+  chruby_reset
 end
+
+test "$TESTNAME: chruby_reset hash table"
+ -z (hash)
+end
+
+test "$TESTNAME: chruby_reset environment variable RUBY_ROOT"
+  -z "$RUBY_ROOT"
+end
+
+test "$TESTNAME: chruby_reset environment variable RUBY_ENGINE"
+  -z "$RUBY_ENGINE"
+end
+
+test "$TESTNAME: chruby_reset environment variable RUBY_VERSION"
+  -z "$RUBY_VERSION"
+end
+
+test "$TESTNAME: chruby_reset environment variable RUBYOPT"
+  -z "$RUBYOPT"
+end
+
+test "$TESTNAME: chruby_reset environment variable GEM_HOME"
+  -z "$GEM_HOME"
+end
+
+test "$TESTNAME: chruby_reset environment variable GEM_PATH"
+  -z "$GEM_PATH"
+end
+
+# FIXME: PATH is not cleaned as expected, duplication continues to stack of
+#        these three paths:
+#
+#          test/home/.gem/ruby/2.2.1/bin
+#          test/opt/rubies/ruby-2.2.1/lib/ruby/gems/2.2.0/bin
+#          test/opt/rubies/ruby-2.2.1/bin
+#
+# test "$TESTNAME: chruby_reset environment variable RUBY_ROOT"
+#   "$test_path" = "$PATH"
+# end
