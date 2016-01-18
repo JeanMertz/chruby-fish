@@ -79,7 +79,7 @@ function chruby_reset
 
   set -l unset_vars RUBY_ROOT RUBY_ENGINE RUBY_VERSION RUBYOPT GEM_ROOT
   for i in (seq (count $unset_vars))
-    set -e $unset_vars[$i]
+    set -q $unset_vars[$i]; and set -e $unset_vars[$i]; or true
   end
 end
 
