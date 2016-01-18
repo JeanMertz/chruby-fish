@@ -93,7 +93,7 @@ function chruby_use
   set -l args '; echo $RUBY_ROOT ${RUBYOPT:-_} ${GEM_HOME:-_} ${GEM_PATH:-_} \
                       ${GEM_ROOT:-_} $PATH $RUBY_ENGINE $RUBY_VERSION $?'
 
-  bchruby 'chruby' $argv $args | read -l ch_ruby_root ch_rubyopt ch_gem_home \
+  bchruby 'chruby_use' $argv $args | read -l ch_ruby_root ch_rubyopt ch_gem_home \
                                          ch_gem_path ch_gem_root ch_path \
                                          ch_ruby_engine ch_ruby_version \
                                          ch_status
