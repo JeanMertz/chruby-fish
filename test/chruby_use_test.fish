@@ -1,26 +1,43 @@
-function suite_chruby_use
-  function setup
-    chruby_use $test_ruby_version
-  end
+source ./test/helper.fish
 
-  function teardown
-    chruby_reset
-  end
+function setup
+  source ./test/helper.fish
 
-  function test_chruby_use
-    assert_equal "$test_ruby_root" "$RUBY_ROOT"
-    assert_equal "$test_ruby_engine" "$RUBY_ENGINE"
-    assert_equal "$test_ruby_version" "$RUBY_VERSION"
-    assert_equal "$test_ruby_root/lib/ruby/gems/$test_ruby_api" "$GEM_ROOT"
-    assert_equal "$test_ruby_root/bin/ruby" (which ruby)
-    assert_equal "$test_gem_home" "$GEM_HOME"
-    assert_equal "$GEM_HOME $GEM_ROOT" "$GEM_PATH"
-    assert_equal "$test_gem_home/bin $test_gem_root/bin $test_ruby_root/bin $test_path" "$PATH"
-  end
+  chruby_use $test_ruby_root >/dev/null
 end
 
-if not set -q tank_running
-  . (dirname (status -f))/helper.fish
-  tank_run
-  exit $status
+function -S teardown
+  chruby_reset
+end
+
+test "$TESTNAME: chruby clears hash table"
+  -z (hash)
+end
+
+test "$TESTNAME: chruby_use environment variable RUBY_ROOT"
+  "$test_ruby_root" = "$RUBY_ROOT"
+end
+
+test "$TESTNAME: chruby_use environment variable RUBY_ENGINE"
+  "$test_ruby_engine" = "$RUBY_ENGINE"
+end
+
+test "$TESTNAME: chruby_use environment variable RUBY_VERSION"
+  "$test_ruby_version" = "$RUBY_VERSION"
+end
+
+test "$TESTNAME: chruby_use environment variable GEM_ROOT"
+  "$test_ruby_root/lib/ruby/gems/$test_ruby_api" = "$GEM_ROOT"
+end
+
+test "$TESTNAME: chruby_use environment variable GEM_HOME"
+  "$test_gem_home" = "$GEM_HOME"
+end
+
+test "$TESTNAME: chruby_use environment variable GEM_PATH"
+  "$GEM_HOME $GEM_ROOT" = "$GEM_PATH"
+end
+
+test "$TESTNAME: chruby_use environment variable GEM_PATH"
+  "$test_ruby_root/bin/ruby" = (command -v ruby)
 end

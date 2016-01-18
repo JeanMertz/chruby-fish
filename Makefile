@@ -35,6 +35,7 @@ verify: $(PKG) $(SIG)
 	gpg --verify $(SIG) $(PKG)
 
 clean:
+	rm -rf test/opt/rubies
 	rm -f $(PKG) $(SIG)
 
 all: $(PKG) $(SIG)
@@ -43,7 +44,7 @@ test/opt/rubies:
 	./test/setup
 
 test: test/opt/rubies
-	fish ./test/runner
+	./test/runner
 
 tag:
 	git push origin master
@@ -58,13 +59,13 @@ rpm:
 	rpmbuild -ba rpm/chruby.spec
 
 install:
-	for dir in $(INSTALL_DIRS); do mkdir -p $(PREFIX)/$$dir; done
-	for file in $(INSTALL_FILES); do cp $$file $(PREFIX)/$$file; done
-	mkdir -p $(DOC_DIR)
-	cp -r $(DOC_FILES) $(DOC_DIR)/
+	for dir in $(INSTALL_DIRS); do mkdir -p $(DESTDIR)$(PREFIX)/$$dir; done
+	for file in $(INSTALL_FILES); do cp $$file $(DESTDIR)$(PREFIX)/$$file; done
+	mkdir -p $(DESTDIR)$(DOC_DIR)
+	cp -r $(DOC_FILES) $(DESTDIR)$(DOC_DIR)/
 
 uninstall:
-	for file in $(INSTALL_FILES); do rm -f $(PREFIX)/$$file; done
-	rm -rf $(DOC_DIR)
+	for file in $(INSTALL_FILES); do rm -f $(DESTDIR)$(PREFIX)/$$file; done
+	rm -rf $(DESTDIR)$(DOC_DIR)
 
 .PHONY: build download sign verify clean test tag release rpm install uninstall all
