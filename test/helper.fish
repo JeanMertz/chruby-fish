@@ -1,6 +1,6 @@
-export PROJECT="$PWD"
-export PREFIX="$PROJECT/test"
-export HOME="$PREFIX/home"
+set -x PROJECT "$PWD"
+set -x PREFIX "$PROJECT/test"
+set -x HOME "$PREFIX/home"
 
 source ./share/chruby/chruby.fish
 chruby_reset

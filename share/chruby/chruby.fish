@@ -139,11 +139,11 @@ function chruby
       else
         set -l dir ruby match
         for dir in $RUBIES
-          set dir (string trim -r -c/ "$dir")
-          set ruby (string split -m1 -r / $dir | tail -n1)
+          set dir (echo "$dir" | sed -e 's|/$||')
+          set ruby (echo "$dir" | awk -F/ '{print $NF}')
 
           test "$argv[1]" = "$ruby"; and set match "$dir"; and break
-          string match -qi "*$argv[1]*" "$ruby"; and set match "$dir"
+          echo "$ruby" | grep -q "$argv[1]"; and set match "$dir"
         end
 
         set -e argv[1]
