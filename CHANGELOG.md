@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.7.2 (2016-01-19)
+
+**Improvements**
+
+- make 0.7.x compatible with Fish 2.2.0, as it was before
+
 ## v0.7.1 (2016-01-18)
 
 **Fixes**
