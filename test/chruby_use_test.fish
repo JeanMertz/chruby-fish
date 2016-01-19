@@ -39,5 +39,5 @@ test "$TESTNAME: chruby_use environment variable GEM_PATH"
 end
 
 test "$TESTNAME: chruby_use environment variable GEM_PATH"
-  "$test_ruby_root/bin/ruby" = (command -v ruby)
+  "$test_ruby_root/bin/ruby" = (which ruby)
 end
