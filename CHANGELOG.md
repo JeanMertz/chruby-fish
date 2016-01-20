@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## UNRELEASED
+
+**Fixes**
+
+- set `GEM_PATH` correctly, Rubygems uses `:` instead of Fish' spaces as a path
+  separator
+
 ## v0.7.2 (2016-01-19)
 
 **Improvements**

@@ -35,7 +35,7 @@ test "$TESTNAME: chruby_use environment variable GEM_HOME"
 end
 
 test "$TESTNAME: chruby_use environment variable GEM_PATH"
-  "$GEM_HOME $GEM_ROOT" = "$GEM_PATH"
+  "$GEM_HOME:$GEM_ROOT" = "$GEM_PATH"
 end
 
 test "$TESTNAME: chruby_use environment variable GEM_PATH"
