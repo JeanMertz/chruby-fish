@@ -4,8 +4,6 @@ function setup
   source ./test/helper.fish
 
   set original_rubies "$RUBIES"
-
-  chruby 2.2
 end
 
 function -S teardown
@@ -18,17 +16,18 @@ test "$TESTNAME: chruby default RUBIES"
 end
 
 test "$TESTNAME: chruby 2.2"
-  "$RUBY_ROOT" = (chruby "2.2"; echo "$test_ruby_root")
+  "$test_ruby_root" = (chruby "2.2"; echo "$RUBY_ROOT")
 end
 
 test "$TESTNAME: chruby multiple matches"
-  "$RUBY_ROOT" = \
-    (set RUBIES "/path/to/ruby-2.2" "$test_ruby_root"; chruby "2.2"; echo "$test_ruby_root")
+  "$test_ruby_root" = (set RUBIES "/path/to/ruby-2.2" "$test_ruby_root"; \
+                       chruby "2.2"; echo "$RUBY_ROOT")
 end
 
 test "$TESTNAME: chruby exact match first"
-  "$RUBY_ROOT" = (set RUBIES "$test_ruby_root" "$test_ruby_root-rc1"; \
-    chruby (echo "$test_ruby_root" | awk -F/ '{print $2}'); echo "$test_ruby_root")
+  "$test_ruby_root" = (set RUBIES "$test_ruby_root" "$test_ruby_root-rc1"; \
+                       chruby (echo "$test_ruby_root" | awk -F/ '{print $NF}'); \
+                       echo "$RUBY_ROOT")
 end
 
 test "$TESTNAME: chruby system"

@@ -38,6 +38,6 @@ test "$TESTNAME: chruby_use environment variable GEM_PATH"
   "$GEM_HOME:$GEM_ROOT" = "$GEM_PATH"
 end
 
-test "$TESTNAME: chruby_use environment variable GEM_PATH"
+test "$TESTNAME: chruby_use adds ruby executable to PATH"
   "$test_ruby_root/bin/ruby" = (which ruby)
 end

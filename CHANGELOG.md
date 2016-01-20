@@ -2,6 +2,10 @@
 
 ## UNRELEASED
 
+**Improvements**
+
+- some tests wheren't testing the expected outcome, they now do
+
 **Fixes**
 
 - set `GEM_PATH` correctly, Rubygems uses `:` instead of Fish' spaces as a path
