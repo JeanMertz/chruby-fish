@@ -41,13 +41,6 @@ test "$TESTNAME: chruby_reset environment variable GEM_PATH"
   -z "$GEM_PATH"
 end
 
-# FIXME: PATH is not cleaned as expected, duplication continues to stack of
-#        these three paths:
-#
-#          test/home/.gem/ruby/2.2.1/bin
-#          test/opt/rubies/ruby-2.2.1/lib/ruby/gems/2.2.0/bin
-#          test/opt/rubies/ruby-2.2.1/bin
-#
-# test "$TESTNAME: chruby_reset environment variable RUBY_ROOT"
-#   "$test_path" = "$PATH"
-# end
+test "$TESTNAME: chruby_reset environment variable RUBY_ROOT"
+  "$test_path" = "$PATH"
+end
