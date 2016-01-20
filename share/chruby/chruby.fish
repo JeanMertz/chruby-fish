@@ -113,6 +113,20 @@ function chruby_use
   set -gx RUBY_ROOT $ch_ruby_root
   test $ch_gem_root = '_'; or set -gx GEM_ROOT $ch_gem_root
   test $ch_rubyopt = '_'; or set -gx RUBYOPT $ch_rubyopt
+
+  # Fish warns the user when a path in the PATH environment variable does not
+  # exist:
+  #
+  #   set: Warning: path component /path/to/bin may not be valid in PATH.
+  #   set: No such file or directory
+  #
+  # Given that this happens for every Ruby install (until gems are installed in
+  # these paths), we pre-create this directory, to silence Fish' warning.
+  #
+  for gem_path in (echo $ch_gem_path | tr : '\n')
+    test -d "$gem_path/bin"; or mkdir -p "$gem_path/bin"
+  end
+
   set -gx PATH (echo $ch_path | tr : '\n')
 
   if test (id -u) != '0'

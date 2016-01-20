@@ -2,6 +2,10 @@
 
 ## UNRELEASED
 
+**Features**
+
+- auto-create missing Rubygem bin paths to silence Fish warnings
+
 **Improvements**
 
 - some tests wheren't testing the expected outcome, they now do

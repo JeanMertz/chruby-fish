@@ -52,23 +52,6 @@ If you use a custom install location for chruby, use the
 
 For more general instructions, see the [chruby documentation][].
 
-## Known Issues
-
-* Invalid PATH warning by Fish shell
-
-  If you see a warning similar to
-
-  ```txt
-  set: Warning: path component /path/to/ruby-x.y.z/lib/ruby/gems/x.y.z/bin may not be valid in PATH.
-  set: No such file or directory
-  ```
-
-  you can silence it by creating that directory:
-
-  ```sh
-  mkdir -p /path/to/ruby-x.y.z/lib/ruby/gems/x.y.z/bin
-  ```
-
 ## License & Authors
 
 Author: Jean Mertz - jean@mertz.fm
