@@ -44,14 +44,14 @@ function bchruby
   end
 
   set bash_path (echo $PATH | tr ' ' ':')
-  env - bash -lc "export HOME=$HOME           \
-                         PREFIX=$PREFIX       \
-                         PATH=$bash_path      \
-                         RUBY_ROOT=$RUBY_ROOT \
-                         GEM_HOME=$GEM_HOME   \
-                         GEM_ROOT=$GEM_ROOT   \
-                         GEM_PATH=$GEM_PATH;  \
-                  source $CHRUBY_ROOT/share/chruby/chruby.sh; $argv"
+  bash -lc "export HOME=$HOME           \
+                   PREFIX=$PREFIX       \
+                   PATH=$bash_path      \
+                   RUBY_ROOT=$RUBY_ROOT \
+                   GEM_HOME=$GEM_HOME   \
+                   GEM_ROOT=$GEM_ROOT   \
+                   GEM_PATH=$GEM_PATH;  \
+            source $CHRUBY_ROOT/share/chruby/chruby.sh; $argv"
 end
 
 # Define RUBIES variable with paths to installed ruby versions.
