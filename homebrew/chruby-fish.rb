@@ -13,7 +13,6 @@ class ChrubyFish < Formula
   end
 
   test do
-    output = `fish -ic '. #{share}/chruby/chruby.fish; chruby --version'`
-    assert output.include?("chruby-fish")
+    assert_match /chruby-fish/, shell_output("fish -c '. #{share}/chruby/chruby.fish; chruby --version'")
   end
 end
