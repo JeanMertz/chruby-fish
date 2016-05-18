@@ -10,9 +10,9 @@ Thin wrapper around [chruby][] to make it work with the [Fish shell][]
 [install it first][].
 
 ```bash
-wget -O chruby-fish-0.7.2.tar.gz https://github.com/JeanMertz/chruby-fish/archive/v0.7.2.tar.gz
-tar -xzvf chruby-fish-0.7.2.tar.gz
-cd chruby-fish-0.7.2/
+wget -O chruby-fish-0.8.0.tar.gz https://github.com/JeanMertz/chruby-fish/archive/v0.8.0.tar.gz
+tar -xzvf chruby-fish-0.8.0.tar.gz
+cd chruby-fish-0.8.0/
 sudo make install
 ```
 
