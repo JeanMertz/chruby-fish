@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## UNRELEASED
+## v0.8.1 (2016-12-05)
 
 **Fixes**
 
