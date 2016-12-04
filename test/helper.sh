@@ -3,7 +3,7 @@ export HOME="$PREFIX/home"
 export PATH="$PWD/bin:$PATH"
 
 test_ruby_engine="ruby"
-test_ruby_version="2.2.1"
+test_ruby_version="2.2.5"
 test_ruby_api="2.2.0"
 test_ruby_root="$PWD/test/opt/rubies/$test_ruby_engine-$test_ruby_version"
 

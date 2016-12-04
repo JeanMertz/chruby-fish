@@ -163,6 +163,11 @@ function chruby
           echo "$ruby" | grep -q "$argv[1]"; and set match "$dir"
         end
 
+        if test -z "$match"
+          echo "chruby: unknown Ruby: $argv[1]" >&2
+          return 1
+        end
+
         set -e argv[1]
         chruby_use "$match" "$argv"
       end

@@ -6,7 +6,7 @@ source ./share/chruby/chruby.fish
 chruby_reset
 
 set test_ruby_engine "ruby"
-set test_ruby_version "2.2.1"
+set test_ruby_version "2.2.5"
 set test_ruby_api "2.2.0"
 set test_ruby_root "$PROJECT/test/opt/rubies/$test_ruby_engine-$test_ruby_version"
 

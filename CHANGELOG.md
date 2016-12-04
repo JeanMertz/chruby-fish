@@ -2,6 +2,10 @@
 
 ## UNRELEASED
 
+**Fixes**
+
+- show correct error when switching to missing Ruby
+
 **Improvements**
 
 - set $HOME, $PATH and other variables _before_ running interactive bash shell,
@@ -15,7 +19,7 @@
 
 **Improvements**
 
-- some tests wheren't testing the expected outcome, they now do
+- some tests weren't testing the expected outcome, they now do
 
 **Fixes**
 
