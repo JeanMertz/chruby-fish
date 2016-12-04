@@ -3,4 +3,5 @@ fishtape
 pkg/*.tar.gz
 test/**/fishd.*
 test/fish_binaries
+test/home/tmp
 test/opt

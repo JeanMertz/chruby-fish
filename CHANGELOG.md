@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## UNRELEASED
+
+**Improvements**
+
+- set $HOME, $PATH and other variables _before_ running interactive bash shell,
+  to support login scripts using these variables (thanks @bjeanes).
+
 ## v0.8.0 (2016-05-18)
 
 **Features**

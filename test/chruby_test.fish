@@ -42,6 +42,10 @@ test "$TESTNAME: chruby invalid ruby"
   "1" = (set RUBIES "/does/not/exist/jruby"; chruby "jruby" 2>/dev/null; echo "$status")
 end
 
+test "$TESTNAME: chruby supports .bash_profile"
+  "$HOME" = (touch $HOME/tmp; chruby "2.2"; cat $HOME/tmp)
+end
+
 # FIXME: error on Travis for Fish 2.2.0
 #
 # test "$TESTNAME: chruby show active"

@@ -36,6 +36,7 @@ verify: $(PKG) $(SIG)
 
 clean:
 	rm -rf test/opt/rubies
+	rm -rf test/home/tmp
 	rm -f $(PKG) $(SIG)
 
 all: $(PKG) $(SIG)
