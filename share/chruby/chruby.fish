@@ -131,7 +131,7 @@ function chruby_use
 
   if test (id -u) != '0'
     set -gx GEM_HOME $ch_gem_home
-    set -gx GEM_PATH $ch_gem_path
+    set -gx GEM_PATH (echo $ch_gem_path | tr : '\n')
   end
 end
 
