@@ -9,7 +9,7 @@ function setup
   set -q RUBY_AUTO_VERSION; and set -e RUBY_AUTO_VERSION; or true
 end
 
-function -S teardown
+function teardown -S
   echo "2.1" > $test_project_dir/modified_version/.ruby-version
   cd "$PROJECT"
 end

@@ -6,7 +6,7 @@ function setup
   chruby_use $test_ruby_root >/dev/null
 end
 
-function -S teardown
+function teardown -S
   chruby_reset
 end
 
