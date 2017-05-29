@@ -80,11 +80,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ```
 
-[ci]: http://travis-ci.org/JeanMertz/chruby-fish
+[ci]: https://travis-ci.org/JeanMertz/chruby-fish
 [gittip]: https://www.gittip.com/JeanMertz
 [chruby]: https://github.com/postmodern/chruby
-[fish shell]: http://fishshell.com
+[fish shell]: https://fishshell.com
 [install it first]: https://github.com/postmodern/chruby#install
-[homebrew]: http://brew.sh/
+[homebrew]: https://brew.sh/
 [chruby_root]: https://github.com/JeanMertz/chruby-fish/blob/ad62361884941067485df6c417959cdc2a42c182/share/chruby/chruby.fish#L33-L34
 [chruby documentation]: https://github.com/postmodern/chruby#chruby
