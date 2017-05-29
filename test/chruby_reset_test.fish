@@ -9,7 +9,7 @@ function setup
   chruby_reset
 end
 
-function teardown -S
+function teardown
   chruby_reset
 end
 

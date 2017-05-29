@@ -6,7 +6,7 @@ function setup
   set original_rubies "$RUBIES"
 end
 
-function teardown -S
+function teardown
   chruby_reset
   set RUBIES $original_rubies
 end

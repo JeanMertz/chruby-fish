@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. ./test/helper.sh
+
 function log() {
 	if [[ -t 1 ]]; then
 		printf "\x1b[1m\x1b[32m>>>\x1b[0m \x1b[1m%s\x1b[0m\n" "$1"
