@@ -1,6 +1,6 @@
 # chruby-fish
 
-[![Build Status](http://img.shields.io/travis/JeanMertz/chruby-fish.svg)][ci]
+[![Build Status](https://travis-ci.org/JeanMertz/chruby-fish.svg?branch=master)][ci]
 
 Thin wrapper around [chruby][] to make it work with the [Fish shell][]
 
