@@ -160,7 +160,7 @@ function chruby
           set ruby (echo "$dir" | awk -F/ '{print $NF}')
 
           test "$argv[1]" = "$ruby"; and set match "$dir"; and break
-          echo "$ruby" | grep -q "$argv[1]"; and set match "$dir"
+          echo "$ruby" | grep -q -- "$argv[1]"; and set match "$dir"
         end
 
         if test -z "$match"

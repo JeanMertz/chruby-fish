@@ -42,8 +42,12 @@ test "$TESTNAME: chruby invalid ruby"
   "1" = (set RUBIES "/does/not/exist/jruby"; chruby "jruby" 2>/dev/null; echo "$status")
 end
 
-test "$TESTNAME: chruby unknown Ruby"
+test "$TESTNAME: chruby unknown Ruby does_not_exist"
   "chruby: unknown Ruby: does_not_exist" = (chruby "does_not_exist" 2>&1)
+end
+
+test "$TESTNAME: chruby unknown Ruby -v"
+  "chruby: unknown Ruby: -v" = (chruby "-v" 2>&1)
 end
 
 test "$TESTNAME: chruby supports .bash_profile"
