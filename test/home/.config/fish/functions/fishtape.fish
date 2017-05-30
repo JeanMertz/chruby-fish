@@ -59,7 +59,11 @@ function fishtape -d "TAP producer and test harness for fish"
 
     awk (
         for name in runtime total locals reset setup count teardown
-          printf "%s\n" -v $name=(functions __fishtape@{$name} | sed '1d;$d;s/\\\/\\\\\\\/g' | paste -sd ';' -)
+          if functions __fishtape@{$name} | head -n1 | grep -q '^#'
+            printf "%s\n" -v $name=(functions __fishtape@{$name} | sed '1,2d;$d;s/\\\/\\\\\\\/g' | paste -sd ';' -)
+          else
+            printf "%s\n" -v $name=(functions __fishtape@{$name} | sed '1d;$d;s/\\\/\\\\\\\/g' | paste -sd ';' -)
+          end
         end
         ) '
 
