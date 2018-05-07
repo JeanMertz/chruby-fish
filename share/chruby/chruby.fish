@@ -43,7 +43,7 @@ function bchruby
     return 1
   end
 
-  set bash_path (echo $PATH | tr ' ' ':')
+  set bash_path (env | grep '^PATH=' | cut -c 6-)
   env - HOME=$HOME           \
         PREFIX=$PREFIX       \
         PATH=$bash_path      \
@@ -68,7 +68,8 @@ set -gx CHRUBY_VERSION (bchruby 'echo $CHRUBY_VERSION')
 # environment variables, returning the ruby version to the system default.
 #
 function chruby_reset
-  bchruby 'chruby_reset; echo $PATH ${GEM_PATH:-_}' | \
+  set -l IFS ";"
+  bchruby 'chruby_reset; echo "$PATH;${GEM_PATH:-_}"' | \
     read -l ch_path ch_gem_path
 
   if test (id -u) != '0'
@@ -96,9 +97,9 @@ end
 # variables and setting them in the current Fish instance.
 #
 function chruby_use
-  set -l args '; echo $RUBY_ROOT ${RUBYOPT:-_} ${GEM_HOME:-_} ${GEM_PATH:-_} \
-                      ${GEM_ROOT:-_} $PATH $RUBY_ENGINE $RUBY_VERSION $?'
+  set -l args '; echo "$RUBY_ROOT;${RUBYOPT:-_};${GEM_HOME:-_};${GEM_PATH:-_};${GEM_ROOT:-_};$PATH;$RUBY_ENGINE;$RUBY_VERSION;$?"'
 
+  set -l IFS ";"
   bchruby 'chruby_use' $argv $args | read -l ch_ruby_root ch_rubyopt ch_gem_home \
                                          ch_gem_path ch_gem_root ch_path \
                                          ch_ruby_engine ch_ruby_version \
