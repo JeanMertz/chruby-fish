@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## UNRELEASED
+
+## v0.8.2 (2018-09-15)
+
+**Fixes**
+
+- [d377acb] fix error on any unknown chruby flags
+- [a110525] correctly handle $PATH with spaces in them
+
 ## v0.8.1 (2016-12-05)
 
 **Fixes**
