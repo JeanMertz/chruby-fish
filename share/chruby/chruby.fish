@@ -44,14 +44,14 @@ function bchruby
   end
 
   set bash_path (env | grep '^PATH=' | cut -c 6-)
-  env - HOME=$HOME           \
-        PREFIX=$PREFIX       \
-        PATH=$bash_path      \
-        RUBY_ROOT=$RUBY_ROOT \
-        GEM_HOME=$GEM_HOME   \
-        GEM_ROOT=$GEM_ROOT   \
-        GEM_PATH=$GEM_PATH   \
-        bash -lc "source $CHRUBY_ROOT/share/chruby/chruby.sh; $argv"
+  env - HOME="$HOME"           \
+        PREFIX="$PREFIX"       \
+        PATH="$bash_path"      \
+        RUBY_ROOT="$RUBY_ROOT" \
+        GEM_HOME="$GEM_HOME"   \
+        GEM_ROOT="$GEM_ROOT"   \
+        GEM_PATH="$GEM_PATH"   \
+        bash -lc "source \"$CHRUBY_ROOT/share/chruby/chruby.sh\"; $argv"
 end
 
 # Define RUBIES variable with paths to installed ruby versions.
@@ -78,7 +78,7 @@ function chruby_reset
     if test "$ch_gem_path" = '_'
       set -e GEM_PATH
     else
-      set -gx GEM_PATH $ch_gem_path
+      set -gx GEM_PATH "$ch_gem_path"
     end
   end
 
@@ -108,12 +108,12 @@ function chruby_use
   test "$ch_status" = 0; or return 1
   test -n "$RUBY_ROOT"; and chruby_reset
 
-  set -gx RUBY_ENGINE $ch_ruby_engine
-  set -gx RUBY_VERSION $ch_ruby_version
+  set -gx RUBY_ENGINE "$ch_ruby_engine"
+  set -gx RUBY_VERSION "$ch_ruby_version"
 
   set -gx RUBY_ROOT $ch_ruby_root
-  test $ch_gem_root = '_'; or set -gx GEM_ROOT $ch_gem_root
-  test $ch_rubyopt = '_'; or set -gx RUBYOPT $ch_rubyopt
+  test "$ch_gem_root" = '_'; or set -gx GEM_ROOT "$ch_gem_root"
+  test "$ch_rubyopt" = '_'; or set -gx RUBYOPT "$ch_rubyopt"
 
   # Fish warns the user when a path in the PATH environment variable does not
   # exist:
@@ -124,15 +124,15 @@ function chruby_use
   # Given that this happens for every Ruby install (until gems are installed in
   # these paths), we pre-create this directory, to silence Fish' warning.
   #
-  for gem_path in (echo $ch_gem_path | tr : '\n')
+  for gem_path in (echo "$ch_gem_path" | tr : '\n')
     test -d "$gem_path/bin"; or mkdir -p "$gem_path/bin"
   end
 
-  set -gx PATH (echo $ch_path | tr : '\n')
+  set -gx PATH (echo "$ch_path" | tr : '\n')
 
   if test (id -u) != '0'
-    set -gx GEM_HOME $ch_gem_home
-    set -gx GEM_PATH $ch_gem_path
+    set -gx GEM_HOME "$ch_gem_home"
+    set -gx GEM_PATH "$ch_gem_path"
   end
 end
 

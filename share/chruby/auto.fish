@@ -62,7 +62,7 @@ function chruby_auto -e fish_prompt
   # RUBY_AUTO_VERSION, so we return quickly.
   #
   if test "$ch_ruby_auto_version" != "$RUBY_AUTO_VERSION"
-    set -gx RUBY_AUTO_VERSION $ch_ruby_auto_version
+    set -gx RUBY_AUTO_VERSION "$ch_ruby_auto_version"
 
     if test -n "$RUBY_AUTO_VERSION"
       chruby "$RUBY_AUTO_VERSION"
