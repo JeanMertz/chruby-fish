@@ -51,7 +51,7 @@ function bchruby
         GEM_HOME="$GEM_HOME"   \
         GEM_ROOT="$GEM_ROOT"   \
         GEM_PATH="$GEM_PATH"   \
-        bash -lc "source \"$CHRUBY_ROOT/share/chruby/chruby.sh\"; $argv"
+        bash -c "source \"$CHRUBY_ROOT/share/chruby/chruby.sh\"; $argv"
 end
 
 # Define RUBIES variable with paths to installed ruby versions.
