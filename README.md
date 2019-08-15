@@ -33,6 +33,14 @@ brew install chruby-fish --HEAD
 chruby is installed as a dependency of chruby-fish, if you installed chruby
 manually, add the `--without-chruby` flag to the above commands.
 
+### Arch Linux
+
+chruby-fish is included in the [AUR](https://aur.archlinux.org/packages/chruby-fish/):
+
+```sh
+yay -S chruby-fish
+```
+
 ## configuration
 
 Add the following line to your `config.fish` file:
