@@ -50,10 +50,6 @@ test "$TESTNAME: chruby unknown Ruby -v"
   "chruby: unknown Ruby: -v" = (chruby "-v" 2>&1)
 end
 
-test "$TESTNAME: chruby supports .bash_profile"
-  "$HOME" = (touch $HOME/tmp; chruby "2.2"; cat $HOME/tmp)
-end
-
 # FIXME: error on Travis for Fish 2.2.0
 #
 # test "$TESTNAME: chruby show active"

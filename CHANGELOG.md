@@ -2,6 +2,10 @@
 
 ## UNRELEASED
 
+## v0.9.0
+
+Rewrite in fish, stop relying on bash chruby.
+
 ## v0.8.2 (2018-09-15)
 
 **Fixes**

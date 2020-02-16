@@ -41,6 +41,6 @@ test "$TESTNAME: chruby_reset environment variable GEM_PATH"
   -z "$GEM_PATH"
 end
 
-test "$TESTNAME: chruby_reset environment variable RUBY_ROOT"
-  "$test_path" = "$PATH"
+test "$TESTNAME: chruby_reset environment variable PATH"
+  $test_path = $PATH
 end
