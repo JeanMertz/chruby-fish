@@ -23,6 +23,7 @@ install:
 
 before_script:
   - __rvm_unload
+  - sudo rm -rf ~/.rvm
   - make test/opt/rubies
   - ls -lah /Users/travis/build/JeanMertz/chruby-fish/test/opt/rubies/
 
