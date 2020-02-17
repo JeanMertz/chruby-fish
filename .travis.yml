@@ -23,8 +23,7 @@ install:
 
 before_script:
   - __rvm_unload
-  - mkdir -p test/opt
-  - cp -R ~/.rvm/rubies test/opt/rubies
+  - make test/opt/rubies
   - ls -lah /Users/travis/build/JeanMertz/chruby-fish/test/opt/rubies/
 
 script: make test
