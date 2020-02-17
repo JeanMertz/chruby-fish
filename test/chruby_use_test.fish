@@ -1,13 +1,13 @@
 source ./test/helper.fish
 
 function setup
-  source ./test/helper.fish
+    source ./test/helper.fish
 
-  chruby_use $test_ruby_root >/dev/null
+    chruby_use $test_ruby_root >/dev/null
 end
 
 function teardown
-  chruby_reset
+    chruby_reset
 end
 
 @test "chruby clears hash table" -z (hash)

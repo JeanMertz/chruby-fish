@@ -1,14 +1,14 @@
 source ./test/helper.fish
 
 function setup
-  source ./test/helper.fish
+    source ./test/helper.fish
 
-  set original_rubies "$RUBIES"
+    set original_rubies "$RUBIES"
 end
 
 function teardown
-  chruby_reset
-  set RUBIES $original_rubies
+    chruby_reset
+    set RUBIES $original_rubies
 end
 
 @test "chruby default RUBIES" "$test_ruby_root" = "$RUBIES"

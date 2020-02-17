@@ -2,16 +2,16 @@ source ./test/helper.fish
 source ./share/chruby/auto.fish
 
 function setup
-  source ./test/helper.fish
-  source ./share/chruby/auto.fish
+    source ./test/helper.fish
+    source ./share/chruby/auto.fish
 
-  chruby_reset
-  set -q RUBY_AUTO_VERSION; and set -e RUBY_AUTO_VERSION; or true
+    chruby_reset
+    set -q RUBY_AUTO_VERSION; and set -e RUBY_AUTO_VERSION; or true
 end
 
 function teardown
-  echo "2.1" > $test_project_dir/modified_version/.ruby-version
-  cd "$PROJECT"
+    echo "2.1" >$test_project_dir/modified_version/.ruby-version
+    cd "$PROJECT"
 end
 
 @test "chruby_auto loaded in Fish" "0" = (functions chruby_auto | grep -q 'on-event fish_prompt'; echo "$status")

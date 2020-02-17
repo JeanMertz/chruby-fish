@@ -1,16 +1,16 @@
 source ./test/helper.fish
 
 function setup
-  source ./test/helper.fish
+    source ./test/helper.fish
 
-  chruby_use $test_ruby_root >/dev/null
-  set -x PATH $GEM_HOME/bin $GEM_ROOT/bin $RUBY_ROOT/bin $test_path
+    chruby_use $test_ruby_root >/dev/null
+    set -x PATH $GEM_HOME/bin $GEM_ROOT/bin $RUBY_ROOT/bin $test_path
 
-  chruby_reset
+    chruby_reset
 end
 
 function teardown
-  chruby_reset
+    chruby_reset
 end
 
 @test "chruby_reset hash table" -z (hash)
