@@ -1,5 +1,5 @@
-set -gx RUBIES $HOME/.rubies/* $PREFIX/opt/rubies/*/
-set -gx CHRUBY_VERSION '1.0.0'
+set -g CHRUBY_VERSION '1.0.0'
+set -g RUBIES $HOME/.rubies/* $PREFIX/opt/rubies/*
 
 function chruby_reset
 	test -z $RUBY_ROOT; and return
@@ -85,7 +85,7 @@ function chruby -a ruby_version
         return 1
       end
 
-      set argv argv[1..]
+      set -e argv[1]
       chruby_use $match "$argv"
   end
 end
