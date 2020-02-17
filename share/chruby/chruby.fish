@@ -52,7 +52,7 @@ function chruby_use -a root options
 end
 
 function chruby -a ruby_version
-  switch $ruby_version
+  switch "$ruby_version"
     case '-h' '--help'
 			echo "usage: chruby [RUBY|VERSION|system] [RUBYOPT...]"
     case '-V' '--version'
