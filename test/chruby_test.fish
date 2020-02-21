@@ -2,6 +2,7 @@ source ./test/helper.fish
 
 function setup
     source ./test/helper.fish
+    source ./share/fish/vendor_functions.d/chruby.fish
 
     set original_rubies "$RUBIES"
 end

@@ -1,9 +1,7 @@
 source ./test/helper.fish
-source ./share/chruby/auto.fish
 
 function setup
     source ./test/helper.fish
-    source ./share/chruby/auto.fish
 
     chruby_reset
     set -q RUBY_AUTO_VERSION; and set -e RUBY_AUTO_VERSION; or true

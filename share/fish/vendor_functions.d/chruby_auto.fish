@@ -1,7 +1,4 @@
-set -e RUBY_AUTO_VERSION
-
 function chruby_auto -e fish_prompt
-    set -q CHRUBY_ROOT; or set CHRUBY_ROOT /usr/local
     set -l dir $PWD/
     while test -n "$dir"
         set dir (string replace -r '/[^/]*$' '' $dir)
