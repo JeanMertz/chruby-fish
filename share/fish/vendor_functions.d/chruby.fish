@@ -16,12 +16,13 @@ function chruby -a ruby_version
                 else
                     echo -n '   '
                 end
-                echo (basename $dir)
+                set -l ruby (string split -r -m1 / "$dir")[2]
+                echo $ruby
             end
         case '*'
             set -l match
             for dir in $RUBIES
-                set -l ruby (basename $dir)
+                set -l ruby (string split -r -m1 / "$dir")[2]
                 if string match -q -e $ruby_version $ruby
                     set match $dir
                     if test $ruby_version = $ruby

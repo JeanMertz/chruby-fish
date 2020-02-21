@@ -3,7 +3,7 @@ function chruby_reset
 
     set -gx PATH (string match -v $RUBY_ROOT/bin $PATH)
 
-    if test (id -u) != 0
+    if test $USER != "root"
         set -gx PATH (string match -v $GEM_HOME/bin $PATH)
         set -gx GEM_PATH (string match -v $GEM_HOME $GEM_PATH)
         if test -n "$GEM_ROOT"

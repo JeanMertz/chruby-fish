@@ -10,8 +10,15 @@ function chruby_use -a root options
     set -gx RUBYOPT $options
     set -gx PATH $root/bin $PATH
 
-    eval ($root/bin/ruby -e 'print "set -gx RUBY_ENGINE #{defined?(RUBY_ENGINE) ? RUBY_ENGINE : "ruby"};set -gx RUBY_VERSION #{RUBY_VERSION}";begin; require "rubygems"; print ";set -gx GEM_ROOT #{Gem.default_dir.inspect}"; rescue LoadError;end')
-    if test (id -u) != 0
+    # Perform caching of ruby environment variables
+    if test -f $RUBY_ROOT/.chruby-env.fish
+      source $RUBY_ROOT/.chruby-env.fish
+    else
+      set -l ruby_env ($root/bin/ruby -e 'print "set -gx RUBY_ENGINE #{defined?(RUBY_ENGINE) ? RUBY_ENGINE : "ruby"};set -gx RUBY_VERSION #{RUBY_VERSION}";begin; require "rubygems"; print ";set -gx GEM_ROOT #{Gem.default_dir.inspect}"; rescue LoadError;end' 2>/dev/null | tee $RUBY_ROOT/.chruby-env.fish 2>/dev/null)
+      eval $ruby_env
+    end
+
+    if test $USER != "root"
         set -gx GEM_HOME "$HOME/.gem/$RUBY_ENGINE/$RUBY_VERSION"
         if test -n "$GEM_ROOT"
             set -gx GEM_PATH $GEM_ROOT $GEM_PATH
