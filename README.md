@@ -40,11 +40,7 @@ yay -S chruby-fish
 
 The `chruby` function is in your autoload path, so you don't need to configure it.
 
-To enable auto-switching, source the `auto.fish` file:
-
-```sh
-source /usr/local/share/fish/vendor_completions.d/chruby_auto.fish
-```
+Auto-switching is enabled by default, set CHRUBY_AUTO_DISABLE=1 if you don't want that.
 
 If you use a custom install location for chruby, use the
 [`CHRUBY_ROOT` variable][chruby_root] to point in the right direction.

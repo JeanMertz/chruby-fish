@@ -1,4 +1,5 @@
 function chruby_auto -e fish_prompt
+    test "$CHRUBY_AUTO_DISABLE" = 1; and return
     set -l dir $PWD/
     while test -n "$dir"
         set dir (string split -r -m1 / $dir)[1]
