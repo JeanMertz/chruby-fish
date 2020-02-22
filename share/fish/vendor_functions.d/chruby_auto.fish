@@ -1,7 +1,7 @@
 function chruby_auto -e fish_prompt
     set -l dir $PWD/
     while test -n "$dir"
-        set dir (string replace -r '/[^/]*$' '' $dir)
+        set dir (string split -r -m1 / $dir)[1]
         if test -f "$dir/.ruby-version"; and read -l ruby_version <"$dir/.ruby-version"
             if test $ruby_version = "$RUBY_AUTO_VERSION"
                 return
