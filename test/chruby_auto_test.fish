@@ -2,12 +2,14 @@ source ./test/helper.fish
 
 function setup
     source ./test/helper.fish
+    source ./share/fish/vendor_conf.d/chruby_auto.fish
 
     chruby_reset
     set -q RUBY_AUTO_VERSION; and set -e RUBY_AUTO_VERSION; or true
 end
 
 function teardown
+    functions --erase chruby_auto
     echo "2.1" >$test_project_dir/modified_version/.ruby-version
     cd "$PROJECT"
 end

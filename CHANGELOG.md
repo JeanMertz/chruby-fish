@@ -2,9 +2,15 @@
 
 ## UNRELEASED
 
-## v0.9.0
+## v1.0.0-beta.1
 
 Rewrite in fish, stop relying on bash chruby.
+
+**Fixes**
+
+- Fix [#31](https://github.com/JeanMertz/chruby-fish/issues/31)
+- Fix [#37](https://github.com/JeanMertz/chruby-fish/issues/37)
+- Fix [#39](https://github.com/JeanMertz/chruby-fish/issues/39)
 
 ## v0.8.2 (2018-09-15)
 
