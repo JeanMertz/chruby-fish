@@ -48,6 +48,7 @@ function bchruby
         PREFIX="$PREFIX"       \
         PATH="$bash_path"      \
         RUBY_ROOT="$RUBY_ROOT" \
+        LD_LIBRARY_PATH="$LD_LIBRARY_PATH" \
         GEM_HOME="$GEM_HOME"   \
         GEM_ROOT="$GEM_ROOT"   \
         GEM_PATH="$GEM_PATH"   \
