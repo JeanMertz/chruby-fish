@@ -155,7 +155,9 @@ function chruby
       if test "$argv[1]" = ''
         bchruby "chruby $argv"
       else
-        set -l dir ruby match
+        set -l dir
+        set -l ruby
+        set -l match
         for dir in $RUBIES
           set dir (echo "$dir" | sed -e 's|/$||')
           set ruby (echo "$dir" | awk -F/ '{print $NF}')
