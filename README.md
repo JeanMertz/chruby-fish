@@ -55,6 +55,8 @@ To enable auto-switching, also add the `auto.fish` file:
 source /usr/local/share/chruby/auto.fish
 ```
 
+Homebrew uses different paths for Intel and Apple Silicon based Macs, you should configure your `config.fish` file accordingly. More about it [here][brew path documentation]
+
 If you use a custom install location for chruby, use the
 [`CHRUBY_ROOT` variable][chruby_root] to point in the right direction.
 
@@ -96,3 +98,4 @@ THE SOFTWARE.
 [homebrew]: https://brew.sh/
 [chruby_root]: https://github.com/JeanMertz/chruby-fish/blob/ad62361884941067485df6c417959cdc2a42c182/share/chruby/chruby.fish#L33-L34
 [chruby documentation]: https://github.com/postmodern/chruby#chruby
+[brew path documentation]: https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
