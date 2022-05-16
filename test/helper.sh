@@ -1,6 +1,7 @@
 export PREFIX="$PWD/test"
 export HOME="$PREFIX/home"
 export PATH="$PWD/bin:$PATH"
+export XDG_CONFIG_HOME="$HOME"
 
 test_ruby_engine="ruby"
 test_ruby_version="2.2.5"

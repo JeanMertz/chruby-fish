@@ -1,6 +1,7 @@
 set -x PROJECT "$PWD"
 set -x PREFIX "$PROJECT/test"
 set -x HOME "$PREFIX/home"
+set -x XDG_CONFIG_HOME $HOME
 
 set fish_function_path $PROJECT/share/fish/vendor_functions.d $fish_function_path
 chruby_reset
