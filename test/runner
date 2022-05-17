@@ -14,13 +14,13 @@ error=0
 
 for test in ${0%/*}/*_test.fish; do
 	log "Running $test under fish (interactive) ..."
-	fish $* -ic "fishtape $test" || error=1
+	fish $* -ic "source test/fishtape.fish; fishtape $test" || error=1
 	echo
 done
 
 for test in ${0%/*}/*_test.fish; do
 	log "Running $test under fish (non-interactive) ..."
-	fish $* -c "fishtape $test" || error=1
+	fish $* -c "source test/fishtape.fish; fishtape $test" || error=1
 	echo
 done
 
