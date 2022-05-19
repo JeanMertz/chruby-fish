@@ -43,6 +43,11 @@ This package is tested against HEAD and the latest stable version of fish.
 
 The `chruby` function is in your autoload path, so you don't need to configure it.
 
+Homebrew uses different paths for Intel and Apple Silicon based Macs, you should configure your `config.fish` file accordingly. More about it [here][brew path documentation]
+
+If you use a custom install location for chruby, use the
+[`CHRUBY_ROOT` variable][chruby_root] to point in the right direction.
+
 Auto-switching is enabled by default, set CHRUBY_AUTO_DISABLE=1 if you don't want that.
 
 For more general instructions, see the [chruby documentation][].
@@ -79,3 +84,4 @@ THE SOFTWARE.
 [fish shell]: https://fishshell.com
 [homebrew]: https://brew.sh/
 [chruby documentation]: https://github.com/postmodern/chruby#chruby
+[brew path documentation]: https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
