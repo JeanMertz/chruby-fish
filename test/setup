@@ -125,8 +125,7 @@ function detect_system() {
 		(Darwin)
 			system_type="darwin"
 			system_name="osx"
-			system_version="$(sw_vers -productVersion)"
-			system_version="${system_version%.*}" # only major.minor - teeny is ignored
+			system_version="10.12" # It's the only binary build available
 			;;
 
 		(FreeBSD)
