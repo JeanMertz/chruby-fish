@@ -1,7 +1,12 @@
 set -g CHRUBY_VERSION '1.0.0'
-set -g RUBIES $HOME/.rubies/* $PREFIX/opt/rubies/*
 
 function chruby -a ruby_version
+    if not set -q RUBIES_DIR
+      set RUBIES_DIR $HOME/.rubies
+    end
+
+    set RUBIES $RUBIES_DIR/* $PREFIX/opt/rubies/*
+
     switch "$ruby_version"
         case '-h' '--help'
             echo "usage: chruby [RUBY|VERSION|system] [RUBYOPT...]"
