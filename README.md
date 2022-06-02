@@ -48,18 +48,16 @@ The `chruby` function is in your autoload path, so you don't need to configure i
 
 Homebrew uses different paths for Intel and Apple Silicon based Macs, you should configure your `config.fish` file accordingly. More about it [here](https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location).
 
-If you use a custom install location for chruby, use the `CHRUBY_ROOT` variable to point in the right direction.
-
 Auto-switching is enabled by default, set `CHRUBY_AUTO_DISABLE=1` if you don't want that.
 
 For more general instructions, see the [chruby documentation](https://github.com/postmodern/chruby#chruby).
 
 ### Default Ruby
 
-To select the default Ruby, simply set it in your fish configuration:
+To select the default Ruby, simply edit `~/.ruby-version`, e.g.:
 
 ```sh
-echo "chruby ruby-3.1.2" > ~/.config/fish/conf.d/chruby.fish
+echo "ruby-3.1.2" > ~/.ruby-version
 ```
 
 ## License
