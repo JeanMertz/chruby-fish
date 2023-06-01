@@ -1,21 +1,24 @@
 # chruby-fish
 
-[![Build Status](https://travis-ci.org/JeanMertz/chruby-fish.svg?branch=master)][ci]
+`chruby` re-implemented for the [Fish shell](https://fishshell.com). You do not need the original `chruby` installed.
 
-`chruby` re-implemented for the [Fish shell][].
+[![CI](https://github.com/JeanMertz/chruby-fish/actions/workflows/ci.yml/badge.svg)](https://github.com/JeanMertz/chruby-fish/actions/workflows/ci.yml)
 
 ## Install
 
-```bash
-wget -O chruby-fish-0.8.2.tar.gz https://github.com/JeanMertz/chruby-fish/archive/v0.8.2.tar.gz
-tar -xzvf chruby-fish-0.8.2.tar.gz
-cd chruby-fish-0.8.2/
-make install
+```sh
+wget -O chruby-fish-1.0.0.tar.gz https://github.com/JeanMertz/chruby-fish/archive/v1.0.0.tar.gz
+tar -xzvf chruby-fish-1.0.0.tar.gz
+cd chruby-fish-1.0.0/
+sudo make install
+
+# You might want to set this too so that fish autoloads correctly:
+set -U XDG_DATA_DIRS /usr/local/share
 ```
 
 ### Homebrew
 
-chruby-fish can also be installed with [homebrew][]:
+`chruby-fish` can also be installed with [homebrew](https://brew.sh/):
 
 ```sh
 brew install chruby-fish
@@ -29,7 +32,7 @@ brew install chruby-fish --HEAD
 
 ### Arch Linux
 
-chruby-fish is included in the [AUR](https://aur.archlinux.org/packages/chruby-fish/):
+`chruby-fish` is included in the [AUR](https://aur.archlinux.org/packages/chruby-fish/):
 
 ```sh
 yay -S chruby-fish
@@ -43,23 +46,25 @@ This package is tested against HEAD and the latest stable version of fish.
 
 The `chruby` function is in your autoload path, so you don't need to configure it.
 
-Homebrew uses different paths for Intel and Apple Silicon based Macs, you should configure your `config.fish` file accordingly. More about it [here][brew path documentation]
+Homebrew uses different paths for Intel and Apple Silicon based Macs, you should configure your `config.fish` file accordingly. More about it [here](https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location).
 
-If you use a custom install location for chruby, use the
-[`CHRUBY_ROOT` variable][chruby_root] to point in the right direction.
+Auto-switching is enabled by default, set `CHRUBY_AUTO_DISABLE=1` if you don't want that.
 
-Auto-switching is enabled by default, set CHRUBY_AUTO_DISABLE=1 if you don't want that.
+For more general instructions, see the [chruby documentation](https://github.com/postmodern/chruby#chruby).
 
-For more general instructions, see the [chruby documentation][].
+### Default Ruby
 
-## License & Authors
+To select the default Ruby, simply edit `~/.ruby-version`, e.g.:
 
-Author: Jean Mertz - jean@mertz.fm
+```sh
+echo "ruby-3.1.2" > ~/.ruby-version
+```
 
-```text
-The MIT License (MIT)
+## License
 
-Copyright (c) Jean Mertz <jean@mertz.fm>
+Released under the MIT license.
+
+Copyright, 2013, by Jean Mertz <jean@mertz.fm>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -78,10 +83,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-```
-
-[ci]: https://travis-ci.org/JeanMertz/chruby-fish
-[fish shell]: https://fishshell.com
-[homebrew]: https://brew.sh/
-[chruby documentation]: https://github.com/postmodern/chruby#chruby
-[brew path documentation]: https://docs.brew.sh/FAQ#why-should-i-install-homebrew-in-the-default-location
